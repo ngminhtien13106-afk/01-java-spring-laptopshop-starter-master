@@ -23,13 +23,18 @@ public class UserController {
   // model.addAttribute("TMind", test);
   // return "hello";
   // }
-
+  // Nếu server nhận được request đến /admin/user, hãy chạy method getHomeUser().
   @RequestMapping("/admin/user")
   public String getHomeUser(Model model) {
+    // Tạo object với tên là newUser
     model.addAttribute("newUser", new User());
+    // render trang /view/admin/user/create.jsp
     return "admin/user/create";
   }
 
+  // Nếu nhận được POST request tới /admin/user/create1, hãy chạy method
+  // createUserPage().
+  // method = RequestMethod.POST Nó có nghĩa:Method này chỉ xử lý HTTP POST.
   @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
   public String createUserPage(@ModelAttribute("newUser") User TMind) {
     System.out.println("run Here" + TMind);

@@ -23,10 +23,13 @@
             <div class="col-md-6 col-12 mx-auto">
               <h3>Create a user</h3>
               <hr>
+              <!-- Khi người dùng submit form, hãy gửi dữ liệu đến URL /admin/user/create1. -->
+              <!--modelAttribute="newUser" nói với Spring:Form này sẽ làm việc với object có tên newUser trong Model. -->
               <form:form action="/admin/user/create1" method="post" modelAttribute="newUser">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
                   <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
+                  <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: User.email -->
                   <div class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
