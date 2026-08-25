@@ -29,7 +29,7 @@
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
                   <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
-                  <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: User.email -->
+                  <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
                   <div class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">

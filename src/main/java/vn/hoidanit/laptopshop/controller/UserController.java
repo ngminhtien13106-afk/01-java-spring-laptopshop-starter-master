@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ public class UserController {
 
   public UserController(UserService userservice) {
     this.userservice = userservice;
+
   }
 
   // @RequestMapping("/")
@@ -23,6 +25,7 @@ public class UserController {
   // model.addAttribute("TMind", test);
   // return "hello";
   // }
+
   // Nếu server nhận được request đến /admin/user, hãy chạy method getHomeUser().
   @RequestMapping("/admin/user")
   public String getHomeUser(Model model) {
@@ -37,6 +40,7 @@ public class UserController {
   // method = RequestMethod.POST Nó có nghĩa:Method này chỉ xử lý HTTP POST.
   @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
   public String createUserPage(@ModelAttribute("newUser") User TMind) {
+    this.userservice.handleSaveUser(TMind);
     System.out.println("run Here" + TMind);
     return "hello";
   }

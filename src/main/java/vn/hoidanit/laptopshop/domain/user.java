@@ -1,13 +1,21 @@
 package vn.hoidanit.laptopshop.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class User {
-  // id: long
-  // email: String
-  // password: String
-  // fullName: String
-  // address: String;
-  // phone: String
+  // @ID chỉ ứng với thuôc tính first , các thuộc tính sau không ảnh hưởng
+  @Id
+  // @GeneratedValue với method GenerationType.IDENTITY là id tự động tăng ( chỉ
+  // ứng với attribute first)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+
   private String email;
   private String password;
   private String fullname;
