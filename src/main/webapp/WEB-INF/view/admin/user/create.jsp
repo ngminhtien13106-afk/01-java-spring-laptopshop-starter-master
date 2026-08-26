@@ -25,7 +25,7 @@
               <hr>
               <!-- Khi người dùng submit form, hãy gửi dữ liệu đến URL /admin/user/create1. -->
               <!--modelAttribute="newUser" nói với Spring:Form này sẽ làm việc với object có tên newUser trong Model. -->
-              <form:form action="/admin/user/create1" method="post" modelAttribute="newUser">
+              <form:form action="/admin/user/createSuccess" method="post" modelAttribute="newUser">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
                   <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
