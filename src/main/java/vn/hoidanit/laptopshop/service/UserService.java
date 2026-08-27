@@ -23,11 +23,12 @@ public class UserService {
     return this.userRepository.findAll();
   }
 
-  public List<User> getAllUsersByEmailList(String address) {
-    return this.userRepository.findByAddress(address);
+  public User getUserId(long id) {
+    return this.userRepository.findById(id);
   }
 
   public User handleSaveUser(User user) {
     return this.userRepository.save(user);
   }
+
 }

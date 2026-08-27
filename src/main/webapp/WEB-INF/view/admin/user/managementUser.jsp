@@ -35,42 +35,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                      <a href="" class="btn btn-success">View</a>
-                      <a href="" class="btn btn-warning">Updata</a>
-                      <a href="" class="btn btn-danger">Delete</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>
-                      <a href="" class="btn btn-success">View</a>
-                      <a href="" class="btn btn-warning">Updata</a>
-                      <a href="" class="btn btn-danger">Delete</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jaites</td>
-                    <td>mairows</td>
-                    <td>
-                      <a href="" class="btn btn-success">View</a>
-                      <a href="" class="btn btn-warning">Updata</a>
-                      <a href="" class="btn btn-danger">Delete</a>
-                    </td>
-                  </tr>
-
-                  <!-- <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr> -->
+                  <c:forEach var="user" items="${users1}">
+                    <tr>
+                      <td>${user.id}</td>
+                      <td>${user.email}</td>
+                      <td>${user.fullname}</td>
+                      <td>
+                        <a href="/admin/user/view/${user.id}" class="btn btn-success">View</a>
+                        <a href="/admin/user/updata/${user.id}" class="btn btn-warning">Updata</a>
+                        <a href="" class="btn btn-danger">Delete</a>
+                      </td>
+                    </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </div>
