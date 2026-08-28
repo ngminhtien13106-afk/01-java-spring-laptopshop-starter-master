@@ -7,7 +7,7 @@
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Delete User ${userid}</title>
         <!-- Tích hợp Bootstrap và JQuery -->
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,20 +21,18 @@
         <div class="container mt-5">
           <div class="row">
             <div class="col-md-6 col-12 mx-auto">
-              <h3>Create a user</h3>
+              <h3>Delete a user: ID ${userid}</h3>
               <hr>
-              <!-- Khi người dùng submit form, hãy gửi dữ liệu đến URL /admin/user/create1. -->
-              <!--modelAttribute="newUser" nói với Spring:Form này sẽ làm việc với object có tên newUser trong Model. -->
-              <form:form action="/admin/user/createSuccess" method="post" modelAttribute="newUser">
+              <form:form action="/admin/user/deleteSuccess/${userid}" method="POST" modelAttribute="detailUser">
                 <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">ID</label>
+                  <p class="border p-2">${userid}</p>
+                </div>
+                <div class=" mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
                   <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
                   <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
                   <div class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <form:input type="password" class="form-control" path="password" />
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Phone Number</label>
@@ -49,9 +47,10 @@
                   <form:input type="text" class="form-control" path="address" />
                 </div>
                 <a href="/admin/user" class="btn btn-success">Back</a>
-                <button type="submit" class="btn btn-on-click-c btn-primary">Create</button>
+                <button type="submit" class="btn btn-on-click-d btn-primary">Delete</button>
 
               </form:form>
+
             </div>
           </div>
           <div>

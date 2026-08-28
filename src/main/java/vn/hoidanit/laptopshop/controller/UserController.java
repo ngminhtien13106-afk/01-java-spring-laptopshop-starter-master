@@ -76,12 +76,22 @@ public class UserController {
   // UpdataUser().
   @RequestMapping("/admin/user/updata/{userid}")
   public String updataUserdetail(Model model, @PathVariable long userid) {
+    // select information detail user
+    model.addAttribute("detailUser", userservice.getUserId(userid));
+    // render trang /view/admin/user/updataUser.jsp
+    return "admin/user/updataUser";
+  }
+
+  // Nếu server nhận được request đến /admin/user/delete/..., hãy chạy method
+  // deleteUser().
+  @RequestMapping("/admin/user/delete/{userid}")
+  public String deleteUserdetail(Model model, @PathVariable long userid) {
     // Tạo object với tên là newUser
     // select information detail user
 
     model.addAttribute("detailUser", userservice.getUserId(userid));
-    // render trang /view/admin/user/create.jsp
-    return "admin/user/updataUser";
+    // render trang /view/admin/user/deleteUser.jsp
+    return "admin/user/deleteUser";
   }
 
   // Nếu nhận được POST request tới /admin/user/createSuccess, hãy chạy method
@@ -89,20 +99,40 @@ public class UserController {
   // method = RequestMethod.POST Nó có nghĩa:Method này chỉ xử lý HTTP POST.
   @RequestMapping(value = "/admin/user/createSuccess", method = RequestMethod.POST)
   public String createUserPage(@ModelAttribute("newUser") User TMind) {
-    this.userservice.handleSaveUser(TMind);
 
+    if (TMind.getEmail() == "" || TMind.getFullname() == "" || TMind.getPassword() == "" || TMind.getPhone() == ""
+        || TMind.getAddress() == "") {
+      System.out.print("Create failed");
+    } else {
+      this.userservice.handleSaveUser(TMind);
+    }
     return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "/admin/user/updataSuccess/{userid}", method = RequestMethod.POST)
   public String updataUserPage(@ModelAttribute("detailUser") User TMind, @PathVariable long userid) {
     // Set id cho object TMind
+
+    User resultUser = this.userservice.getUserId(userid);
+    resultUser.setAddress(TMind.getAddress());
+    resultUser.setFullname(TMind.getPhone());
+    resultUser.setFullname(TMind.getFullname());
+    if (resultUser.getAddress() == "" || resultUser.getFullname() == "" || resultUser.getPhone() == "") {
+      System.out.print("Update failed");
+    } else {
+      this.userservice.handleSaveUser(resultUser);
+    }
+
+    return "redirect:/admin/user";
+  }
+
+  @RequestMapping(value = "/admin/user/deleteSuccess/{userid}", method = RequestMethod.POST)
+  public String deleteUserPage(@ModelAttribute("detailUser") User TMind, @PathVariable long userid) {
+    // Set id cho object TMind
     TMind.setId(userid);
+
     // Update thông tin chỉnh sủa
-    this.userservice.handleSaveUser(TMind);
-
-  
-
+    this.userservice.handleDeleteUser(userid);
     return "redirect:/admin/user";
   }
 }

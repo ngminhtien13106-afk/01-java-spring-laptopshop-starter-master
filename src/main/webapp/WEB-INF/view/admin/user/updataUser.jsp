@@ -30,7 +30,8 @@
                 </div>
                 <div class=" mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
+                  <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email"
+                    disabled="true" />
                   <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
                   <div class="form-text">We'll never share your email with anyone else.</div>
                 </div>
@@ -47,14 +48,14 @@
                   <form:input type="text" class="form-control" path="address" />
                 </div>
                 <a href="/admin/user" class="btn btn-success">Back</a>
-                <button type="submit" class="btn btn-primary">Updata</button>
+                <button type="submit" class="btn btn-on-click-u btn-primary">Updata</button>
 
               </form:form>
 
             </div>
           </div>
           <div>
-
+            <script src="/js/main.js"></script>
       </body>
 
       </html>
