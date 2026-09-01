@@ -1,13 +1,18 @@
 package vn.hoidanit.laptopshop.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "Users")
 public class User {
   // @ID chỉ ứng với thuôc tính first , các thuộc tính sau không ảnh hưởng
   @Id
@@ -15,12 +20,23 @@ public class User {
   // ứng với attribute first)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-
   private String email;
   private String password;
   private String fullname;
   private String address;
   private String phone;
+  private String avatar;
+
+  // Users many - to one - role
+  @ManyToOne
+  // Create column foreign key with role
+  @JoinColumn(name = "role_id")
+  // khai báo đối tượng role
+  private Role role;
+
+  // User one - to many - order
+  @OneToMany(mappedBy = "user")
+  private List<Order> orders;
 
   public long getId() {
     return id;
@@ -70,9 +86,18 @@ public class User {
     this.phone = phone;
   }
 
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
+  }
+
   @Override
   public String toString() {
-    return "User [id:" + id + "email: " + email + "fullName: " + fullname + "phone: " + phone + "address: "
-        + address + "]";
+    return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", address="
+        + address + ", phone=" + phone + ", avatar=" + avatar + "]";
   }
+
 }
