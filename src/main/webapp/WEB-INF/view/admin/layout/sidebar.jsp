@@ -29,7 +29,7 @@
           </div>
           <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Hỏi Dân IT
+            T-Mind
           </div>
         </nav>
       </div>

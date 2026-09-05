@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
@@ -97,13 +99,13 @@ public class UserController {
   // createUserPage().
   // method = RequestMethod.POST Nó có nghĩa:Method này chỉ xử lý HTTP POST.
   @RequestMapping(value = "/admin/user/createSuccess", method = RequestMethod.POST)
-  public String createUserPage(@ModelAttribute("newUser") User TMind) {
+  public String createUserPage(@ModelAttribute("newUser") User TMind, @RequestParam("file") MultipartFile file) {
 
     if (TMind.getEmail() == "" || TMind.getFullname() == "" || TMind.getPassword() == "" || TMind.getPhone() == ""
         || TMind.getAddress() == "") {
       System.out.print("Create failed");
     } else {
-      this.userservice.handleSaveUser(TMind);
+      // this.userservice.handleSaveUser(TMind);
     }
     return "redirect:/admin/user";
   }
