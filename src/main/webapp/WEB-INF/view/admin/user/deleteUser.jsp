@@ -38,27 +38,12 @@
                       <h3>Delete a user: ID ${userid}</h3>
                       <hr>
                       <form:form action="/admin/user/deleteSuccess/${userid}" method="POST" modelAttribute="detailUser">
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">ID</label>
-                          <p class="border p-2">${userid}</p>
-                        </div>
-                        <div class=" mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
-                          <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
-                          <div class="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Phone Number</label>
-                          <form:input type="number" class="form-control" path="phone" />
-                        </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Full Name</label>
-                          <form:input type="text" class="form-control" path="fullname" />
-                        </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Address</label>
-                          <form:input type="text" class="form-control" path="address" />
+                        <div>
+                          <p class="border-danger border ps-2 bg-danger bg-opacity-25 text-danger">Delete
+                            ${detailUser.getRole().getName()} -
+                            ID
+                            ${detailUser.id}
+                          </p>
                         </div>
                         <a href="/admin/user" class="btn btn-success">Back</a>
                         <button type="submit" class="btn btn-on-click-d btn-primary">Delete</button>

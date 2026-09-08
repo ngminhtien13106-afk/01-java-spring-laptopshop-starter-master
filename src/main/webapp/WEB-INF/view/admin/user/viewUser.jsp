@@ -38,35 +38,53 @@
                     <div class="col-md-6 col-12 mx-auto">
                       <h3>View a user: ID ${userid}</h3>
                       <hr>
-                      <form>
 
-                        <div class="mb-3">
+                      <div class="row">
+                        <div class="mb-3 col ">
                           <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <p class="border p-1">${detailUser.email}</p>
+                          <p class="border rounded-1 p-1">${detailUser.email}</p>
                           <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col">
                           <label for="exampleInputPassword1" class="form-label">Password</label>
-                          <p class="border p-1">${detailUser.password}</p>
+                          <p class="border rounded-1 p-1">${detailUser.password}</p>
                         </div>
-                        <div class="mb-3">
+                      </div>
+
+                      <div class="row">
+                        <div class="mb-3 col">
                           <label for="exampleInputPassword1" class="form-label">Phone Number</label>
-                          <p class="border p-1">${detailUser.phone}</p>
+                          <p class="border rounded-1 p-1">${detailUser.phone}</p>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col">
                           <label for="exampleInputPassword1" class="form-label">Full Name</label>
-                          <p class="border p-1">${detailUser.fullname}</p>
+                          <p class="border rounded-1  p-1">${detailUser.fullname}</p>
                         </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Address</label>
-                          <p class="border p-1">${detailUser.address}</p>
-                        </div>
+                      </div>
 
-                        <div>
-                          <a href="/admin/user" class="btn btn-success">Back</a>
-                        </div>
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Address</label>
+                        <p class="border rounded-1 p-1">${detailUser.address}</p>
+                      </div>
 
-                      </form>
+                      <div class="row">
+                        <div class="mb-3 col">
+                          <label for="exampleInputPassword1" class="form-label">Images</label>
+                          <img class="img-thumbnail" src="/images/avatar/${detailUser.avatar}" alt="">
+                        </div>
+                        
+                        <div class="mb-3 col">
+                          <label for="exampleInputPassword1" class="form-label">Role</label>
+                          <p class="border rounded-1  p-1">${detailUser.getRole().getName()}</p>
+                        </div>
+                      </div>
+
+                      <div>
+                        <a href="/admin/user" class="btn btn-success mb-3">Back</a>
+                      </div>
+
+
+
 
                     </div>
                   </div>

@@ -2,10 +2,14 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import vn.hoidanit.laptopshop.config.SecurityConfiguration;
+import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,11 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
+
   private UserService userservice;
+  private UploadService uploadService;
+  private PasswordEncoder passwordEncoder;
 
-  public UserController(UserService userservice) {
+  public UserController(UserService userservice, UploadService uploadService,
+      PasswordEncoder passwordEncoder) {
     this.userservice = userservice;
-
+    this.uploadService = uploadService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   // @RequestMapping("/")
@@ -105,19 +114,28 @@ public class UserController {
         || TMind.getAddress() == "") {
       System.out.print("Create failed");
     } else {
-      // this.userservice.handleSaveUser(TMind);
+      String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+      String hashPassword = this.passwordEncoder.encode(TMind.getPassword());
+      TMind.setAvatar(avatar);
+      TMind.setPassword(hashPassword);
+      TMind.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
+      this.userservice.handleSaveUser(TMind);
     }
     return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "/admin/user/updataSuccess/{userid}", method = RequestMethod.POST)
-  public String updataUserPage(@ModelAttribute("detailUser") User TMind, @PathVariable long userid) {
+  public String updataUserPage(@ModelAttribute("detailUser") User TMind, @PathVariable long userid,
+      @RequestParam("file") MultipartFile file) {
     // Set id cho object TMind
 
     User resultUser = this.userservice.getUserId(userid);
+    String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
     resultUser.setAddress(TMind.getAddress());
     resultUser.setFullname(TMind.getPhone());
     resultUser.setFullname(TMind.getFullname());
+    resultUser.setAvatar(avatar);
+    resultUser.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
     if (resultUser.getAddress() == "" || resultUser.getFullname() == "" || resultUser.getPhone() == "") {
       System.out.print("Update failed");
     } else {

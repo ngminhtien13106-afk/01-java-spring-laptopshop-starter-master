@@ -20,6 +20,15 @@
 
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script>
+          $(document).ready(() => {
+            const avatarFile = $("#avatarFile");
+            avatarFile.change(function (e) {
+              const imgURL = URL.createObjectURL(e.target.files[0]);
+              $("#avatarPreview").attr("src", imgURL);
+            });
+          }); 
+        </script>
       </head>
 
       <body class="sb-nav-fixed">
@@ -38,30 +47,58 @@
                     <div class="col-md-6 col-12 mx-auto">
                       <h3>Updata a user: ID ${userid}</h3>
                       <hr>
-                      <form:form action="/admin/user/updataSuccess/${userid}" method="POST" modelAttribute="detailUser">
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">ID</label>
-                          <p class="border p-2">${userid}</p>
+                      <form:form action="/admin/user/updataSuccess/${userid}" enctype="multipart/form-data"
+                        method="POST" modelAttribute="detailUser">
+                        <div class="row">
+                          <div class="mb-3 col">
+                            <label for="exampleInputPassword1" class="form-label">ID</label>
+                            <p class="border p-2">${userid}</p>
+                          </div>
+                          <div class=" mb-3 col">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email"
+                              disabled="true" />
+                            <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
+                          </div>
                         </div>
-                        <div class=" mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email"
-                            disabled="true" />
-                          <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
-                          <div class="form-text">We'll never share your email with anyone else.</div>
+
+                        <div class="row">
+                          <div class="mb-3 col">
+                            <label for="exampleInputPassword1" class="form-label">Phone Number</label>
+                            <form:input type="number" class="form-control" path="phone" />
+                          </div>
+                          <div class="mb-3 col">
+                            <label for="exampleInputPassword1" class="form-label">Full Name</label>
+                            <form:input type="text" class="form-control" path="fullname" />
+                          </div>
                         </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Phone Number</label>
-                          <form:input type="number" class="form-control" path="phone" />
-                        </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Full Name</label>
-                          <form:input type="text" class="form-control" path="fullname" />
-                        </div>
+
                         <div class="mb-3">
                           <label for="exampleInputPassword1" class="form-label">Address</label>
                           <form:input type="text" class="form-control" path="address" />
                         </div>
+
+                        <div class="row">
+                          <div class="mb-3 col">
+                            <label for="avatarFile" class="form-label">Avatar</label>
+                            <input class="form-control" type="file" id="avatarFile" accept=".jpg , .png , .jpeg"
+                              name="file" />
+                            <img class="img-thumbnail" src="/images/avatar/${detailUser.avatar}" alt="avatar preview"
+                              id="avatarPreview">
+
+                          </div>
+
+                          <div class="mb-3 col">
+                            <label class="form-label">Role</label>
+                            <form:select class="form-select" path="role.name">
+                              <form:option value="ADMIN">ADMIN</form:option>
+                              <form:option value="USER">USER</form:option>
+                            </form:select>
+                          </div>
+                        </div>
+
+
+
                         <a href="/admin/user" class="btn btn-success">Back</a>
                         <button type="submit" class="btn btn-on-click-u btn-primary">Updata</button>
 

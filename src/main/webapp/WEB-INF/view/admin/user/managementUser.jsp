@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
         <meta name="author" content="Hỏi Dân IT" />
-        <title>Dashboard - Hỏi Dân IT</title>
+        <title>Dashboard </title>
 
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -41,7 +41,9 @@
                             <th scope="col">ID</th>
                             <th scope="col">Email</th>
                             <th scope="col">Full Name</th>
+                            <th scope="col">Role</th>
                             <th scope="col">Action</th>
+
                           </tr>
                         </thead>
                         <tbody>
@@ -50,6 +52,7 @@
                               <td>${user.id}</td>
                               <td>${user.email}</td>
                               <td>${user.fullname}</td>
+                              <td><b>${user.getRole().getName()}</b></td>
                               <td>
                                 <a href="/admin/user/view/${user.id}" class="btn btn-success">View</a>
                                 <a href="/admin/user/updata/${user.id}" class="btn btn-warning">Updata</a>
