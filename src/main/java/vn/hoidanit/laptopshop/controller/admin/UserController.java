@@ -110,18 +110,24 @@ public class UserController {
   @RequestMapping(value = "/admin/user/createSuccess", method = RequestMethod.POST)
   public String createUserPage(@ModelAttribute("newUser") User TMind, @RequestParam("file") MultipartFile file) {
 
-    if (TMind.getEmail() == "" || TMind.getFullname() == "" || TMind.getPassword() == "" || TMind.getPhone() == ""
-        || TMind.getAddress() == "") {
-      System.out.print("Create failed");
+    if (TMind.getEmail() == null || TMind.getEmail().trim().isEmpty()
+        || TMind.getFullname() == null || TMind.getFullname().trim().isEmpty()
+        || TMind.getPassword() == null || TMind.getPassword().trim().isEmpty()
+        || TMind.getPhone() == null || TMind.getPhone().trim().isEmpty()
+        || TMind.getAddress() == null || TMind.getAddress().trim().isEmpty()) {
+
+      return "redirect:/admin/user?error=true";
+
     } else {
-      String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+      String avatar = this.uploadService.handleSaveUploadFile(file, "images/avatar");
       String hashPassword = this.passwordEncoder.encode(TMind.getPassword());
       TMind.setAvatar(avatar);
       TMind.setPassword(hashPassword);
       TMind.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
       this.userservice.handleSaveUser(TMind);
+      return "redirect:/admin/user";
     }
-    return "redirect:/admin/user";
+
   }
 
   @RequestMapping(value = "/admin/user/updataSuccess/{userid}", method = RequestMethod.POST)
@@ -136,13 +142,19 @@ public class UserController {
     resultUser.setFullname(TMind.getFullname());
     resultUser.setAvatar(avatar);
     resultUser.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
-    if (resultUser.getAddress() == "" || resultUser.getFullname() == "" || resultUser.getPhone() == "") {
-      System.out.print("Update failed");
+    if (TMind.getEmail() == null || TMind.getEmail().trim().isEmpty()
+        || TMind.getFullname() == null || TMind.getFullname().trim().isEmpty()
+        || TMind.getPassword() == null || TMind.getPassword().trim().isEmpty()
+        || TMind.getPhone() == null || TMind.getPhone().trim().isEmpty()
+        || TMind.getAddress() == null || TMind.getAddress().trim().isEmpty()) {
+
+      return "redirect:/admin/user?error=true";
+
     } else {
       this.userservice.handleSaveUser(resultUser);
+      return "redirect:/admin/user";
     }
 
-    return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "/admin/user/deleteSuccess/{userid}", method = RequestMethod.POST)

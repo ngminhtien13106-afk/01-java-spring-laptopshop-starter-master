@@ -8,9 +8,9 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
-        <meta name="author" content="Hỏi Dân IT" />
-        <title>Dashboard </title>
+        <meta name="description" content=" Dự án laptopshop" />
+        <meta name="author" content="TMind" />
+        <title>Dashboard - Product</title>
 
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -30,14 +30,15 @@
               <div class="container-fluid px-4">
                 <h1 class="mt-4">Dashboard</h1>
                 <ol class="breadcrumb mb-4">
-                  <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / User </li>
+                  <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Product </li>
                 </ol>
+
                 <div class="container mt-5">
                   <div class="row">
                     <div class="col-12 mx-auto">
                       <div class="d-flex justify-content-around mb-3">
-                        <h3>Table User</h3>
-                        <a href="/admin/user/createPage" class="btn btn-primary">Create</a>
+                        <h3>Table Product</h3>
+                        <a href="/admin/product/createPage" class="btn btn-primary">Create</a>
                       </div>
                       <hr>
                       <table class="table table-bordered table-hover">
@@ -78,7 +79,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
           crossorigin="anonymous"></script>
         <script src="/js/scripts.js"></script>
-
 
       </body>
 

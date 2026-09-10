@@ -21,7 +21,7 @@ public class UploadService {
 
   public String handleSaveUploadFile(MultipartFile file, String targetFolder) {
     // absolute duong dan tuyet doi
-    String rootPath = this.servletContext.getRealPath("/resources/images");
+    String rootPath = this.servletContext.getRealPath("/resources");
     String finalName = "";
     try {
       byte[] bytes = file.getBytes();
