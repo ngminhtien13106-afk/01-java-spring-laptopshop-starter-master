@@ -45,20 +45,20 @@
                         <thead>
                           <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Role</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">FACTORY</th>
                             <th scope="col">Action</th>
 
                           </tr>
                         </thead>
                         <tbody>
-                          <c:forEach var="user" items="${users1}">
+                          <c:forEach var="product" items="${products}">
                             <tr>
-                              <td>${user.id}</td>
-                              <td>${user.email}</td>
-                              <td>${user.fullname}</td>
-                              <td><b>${user.getRole().getName()}</b></td>
+                              <td>${product.id}</td>
+                              <td>${product.name}</td>
+                              <td>${product.price}</td>
+                              <td>${product.target}</td>
                               <td>
                                 <a href="/admin/user/view/${user.id}" class="btn btn-success">View</a>
                                 <a href="/admin/user/updata/${user.id}" class="btn btn-warning">Updata</a>
