@@ -21,6 +21,9 @@ public class UploadService {
 
   public String handleSaveUploadFile(MultipartFile file, String targetFolder) {
     // absolute duong dan tuyet doi
+    if (file.isEmpty()) {
+      return "";
+    }
     String rootPath = this.servletContext.getRealPath("/resources");
     String finalName = "";
     try {

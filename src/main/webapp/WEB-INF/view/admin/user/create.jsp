@@ -59,20 +59,32 @@
                         modelAttribute="newUser">
                         <div class="row">
                           <div class="mb-3 col">
+                            <c:set var="errorEmail" > 
+                                  <form:errors path="email" />
+                            </c:set>
                             <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <form:input type="email" class="form-control" aria-describedby="emailHelp" path="email" />
+                            <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" aria-describedby="emailHelp" path="email" />
                             <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
-                            <div class="form-text">We'll never share your email with anyone else.</div>
+                                <form:errors path="email" cssClass="invalid-feedback"/>
+                         
                           </div>
                           <div class="mb-3 col">
+                            <c:set var="errorPassword" > 
+                                  <form:errors path="password" />
+                            </c:set>
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <form:input type="password" class="form-control" path="password" />
+                            <form:input type="password" class="form-control  ${not empty errorPassword ? 'is-invalid' : ''}" path="password" />
+                             <form:errors path="password" cssClass="invalid-feedback"/>
                           </div>
                         </div>
                         <div class="row">
                           <div class="mb-3 col">
+                            <c:set var="errorPhone" > 
+                                  <form:errors path="phone" />
+                            </c:set>
                             <label for="exampleInputPassword1" class="form-label">Phone Number</label>
-                            <form:input type="number" class="form-control" path="phone" />
+                            <form:input type="number" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" path="phone" />
+                            <form:errors path="phone" cssClass="invalid-feedback"/>
                           </div>
                           <div class="mb-3 col">
                             <label for="exampleInputPassword1" class="form-label">Full Name</label>

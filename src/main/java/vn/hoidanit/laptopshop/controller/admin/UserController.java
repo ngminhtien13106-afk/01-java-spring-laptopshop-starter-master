@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import vn.hoidanit.laptopshop.config.SecurityConfiguration;
 import vn.hoidanit.laptopshop.domain.Role;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -108,26 +112,26 @@ public class UserController {
   // createUserPage().
   // method = RequestMethod.POST Nó có nghĩa:Method này chỉ xử lý HTTP POST.
   @RequestMapping(value = "/admin/user/createSuccess", method = RequestMethod.POST)
-  public String createUserPage(@ModelAttribute("newUser") User TMind, @RequestParam("file") MultipartFile file) {
+  // BindingResult bindingResult khai báo ngay sau nơi có @valid
+  public String createUserPage(@ModelAttribute("newUser") @Valid User TMind, BindingResult newUserbindingResult,
+      @RequestParam("file") MultipartFile file) {
 
-    if (TMind.getEmail() == null || TMind.getEmail().trim().isEmpty()
-        || TMind.getFullname() == null || TMind.getFullname().trim().isEmpty()
-        || TMind.getPassword() == null || TMind.getPassword().trim().isEmpty()
-        || TMind.getPhone() == null || TMind.getPhone().trim().isEmpty()
-        || TMind.getAddress() == null || TMind.getAddress().trim().isEmpty()) {
-
-      return "redirect:/admin/user?error=true";
-
-    } else {
-      String avatar = this.uploadService.handleSaveUploadFile(file, "images/avatar");
-      String hashPassword = this.passwordEncoder.encode(TMind.getPassword());
-      TMind.setAvatar(avatar);
-      TMind.setPassword(hashPassword);
-      TMind.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
-      this.userservice.handleSaveUser(TMind);
-      return "redirect:/admin/user";
+    List<FieldError> errors = newUserbindingResult.getFieldErrors();
+    for (FieldError error : errors) {
+      System.out.println(">>>>" + error.getField() + " - " + error.getDefaultMessage());
+    }
+    // validate
+    if (newUserbindingResult.hasErrors()) {
+      return "admin/user/create";
     }
 
+    String avatar = this.uploadService.handleSaveUploadFile(file, "images/avatar");
+    String hashPassword = this.passwordEncoder.encode(TMind.getPassword());
+    TMind.setAvatar(avatar);
+    TMind.setPassword(hashPassword);
+    TMind.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
+    this.userservice.handleSaveUser(TMind);
+    return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "/admin/user/updataSuccess/{userid}", method = RequestMethod.POST)
@@ -142,18 +146,9 @@ public class UserController {
     resultUser.setFullname(TMind.getFullname());
     resultUser.setAvatar(avatar);
     resultUser.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
-    if (TMind.getEmail() == null || TMind.getEmail().trim().isEmpty()
-        || TMind.getFullname() == null || TMind.getFullname().trim().isEmpty()
-        || TMind.getPassword() == null || TMind.getPassword().trim().isEmpty()
-        || TMind.getPhone() == null || TMind.getPhone().trim().isEmpty()
-        || TMind.getAddress() == null || TMind.getAddress().trim().isEmpty()) {
 
-      return "redirect:/admin/user?error=true";
-
-    } else {
-      this.userservice.handleSaveUser(resultUser);
-      return "redirect:/admin/user";
-    }
+    this.userservice.handleSaveUser(resultUser);
+    return "redirect:/admin/user";
 
   }
 
