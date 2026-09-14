@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content=" Dự án laptopshop" />
         <meta name="author" content=" IT" />
-        <title>Dashboard - Create </title>
+        <title>Dashboard - Update </title>
 
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
             avatarFile.change(function (e) {
               const imgURL = URL.createObjectURL(e.target.files[0]);
               $("#avatarPreview").attr("src", imgURL);
-              $("#avatarPreview").css({ "display": "block" });
+           
             });
           }); 
         </script>
@@ -46,15 +46,15 @@
               <div class="container-fluid px-4">
                 <h1 class="mt-4">Dashboard</h1>
                 <ol class="breadcrumb mb-4">
-                  <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Product / Create </li>
+                  <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Product / Update </li>
                 </ol>
                 <div class=" mt-5">
                   <div class="row">
                     <div class="col-md-6 col-12 mx-auto">
-                      <h3>Create a product</h3>
+                      <h3>Update a product ID: ${productId}</h3>
                       <hr>
 
-                      <form:form action="/admin/product/createSuccess" enctype="multipart/form-data" method="post"
+                      <form:form action="/admin/product/UpdateSuccess/${productId}" enctype="multipart/form-data" method="post"
                         modelAttribute="newProduct">
                         <div class="row">
                           <div class="mb-3 col">
@@ -145,14 +145,13 @@
                           <div class="mb-3 col">
                           <label for="avatarFile" class="form-label">Image Product: </label>
                           <input class="form-control " type="file" id="avatarFile" name="file" />
-                      
                         </div>
                         <div class="col-12 mb-3">
-                          <img style="max-height: 250px; display:none ;" src="" alt="avatar preview" id="avatarPreview">
+                          <img style="max-height: 250px;" src="/images/product/${newProduct.image}" alt="avatar preview" id="avatarPreview">
                         </div>
 
                         <a href="/admin/product" class="btn btn-success">Back</a>
-                        <button type="submit" class="btn btn-on-click-c btn-primary">Create</button>
+                        <button type="submit" class="btn btn-on-click-c btn-primary">Update</button>
 
                       </form:form>
                     </div>

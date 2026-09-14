@@ -86,17 +86,28 @@
                             <form:input type="number" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" path="phone" />
                             <form:errors path="phone" cssClass="invalid-feedback"/>
                           </div>
+
+
                           <div class="mb-3 col">
+                             <c:set var="errorfullname" > 
+                                  <form:errors path="fullname" />
+                            </c:set>
                             <label for="exampleInputPassword1" class="form-label">Full Name</label>
-                            <form:input type="text" class="form-control" path="fullname" />
+                            <form:input type="text" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" path="fullname" />
+                              <form:errors path="fullname" cssClass="invalid-feedback"/>
                           </div>
                         </div>
                         <div class="mb-3">
+                            <c:set var="erroraddress" > 
+                                  <form:errors path="address" />
+                            </c:set>
                           <label for="exampleInputPassword1" class="form-label">Address</label>
-                          <form:input type="text" class="form-control" path="address" />
+                          <form:input type="text" class="form-control ${not empty erroraddress ? 'is-invalid' : '' }" path="address" />
+                            <form:errors path="address" cssClass="invalid-feedback"/>
                         </div>
+
                         <div class="row">
-                          <div class="mb-3 col">
+                          <div class="mb-3 col">                           
                             <label for="avatarFile" class="form-label">Avatar</label>
                             <input class="form-control" type="file" id="avatarFile" accept=".jpg , .png , .jpeg"
                               name="file" />

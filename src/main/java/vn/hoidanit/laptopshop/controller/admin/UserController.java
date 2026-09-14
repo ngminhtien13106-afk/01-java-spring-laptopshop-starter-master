@@ -103,7 +103,7 @@ public class UserController {
     // Tạo object với tên là newUser
     // select information detail user
 
-    model.addAttribute("detailUser", userservice.getUserId(userid));
+    model.addAttribute("userId", userid);
     // render trang /view/admin/user/deleteUser.jsp
     return "admin/user/deleteUser";
   }
@@ -140,9 +140,9 @@ public class UserController {
     // Set id cho object TMind
 
     User resultUser = this.userservice.getUserId(userid);
-    String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+    String avatar = this.uploadService.handleSaveUploadFile(file, "images/avatar");
     resultUser.setAddress(TMind.getAddress());
-    resultUser.setFullname(TMind.getPhone());
+    resultUser.setPhone(TMind.getPhone());
     resultUser.setFullname(TMind.getFullname());
     resultUser.setAvatar(avatar);
     resultUser.setRole(this.userservice.getRoleName(TMind.getRole().getName()));
@@ -153,9 +153,7 @@ public class UserController {
   }
 
   @RequestMapping(value = "/admin/user/deleteSuccess/{userid}", method = RequestMethod.POST)
-  public String deleteUserPage(@ModelAttribute("detailUser") User TMind, @PathVariable long userid) {
-    // Set id cho object TMind
-    TMind.setId(userid);
+  public String deleteUserPage(@PathVariable long userid) {
 
     // Update thông tin chỉnh sủa
     this.userservice.handleDeleteUser(userid);

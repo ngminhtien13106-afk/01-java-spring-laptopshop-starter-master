@@ -81,7 +81,7 @@
                         <div class="row">
                           <div class="mb-3 col">
                             <label for="avatarFile" class="form-label">Avatar</label>
-                            <input class="form-control" type="file" id="avatarFile" accept=".jpg , .png , .jpeg"
+                            <input class="form-control" type="file" id="avatarFile" accept=".jpg,.png,.jpeg"
                               name="file" />
                             <img class="img-thumbnail" src="/images/avatar/${detailUser.avatar}" alt="avatar preview"
                               id="avatarPreview">

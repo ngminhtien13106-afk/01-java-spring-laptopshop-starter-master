@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
         <meta name="author" content="Hỏi Dân IT" />
-        <title>DashBoard - Delete User ${userid}</title>
+        <title>DashBoard - Delete Product ${productId}</title>
         <!-- Tích hợp Bootstrap và JQuery -->
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,17 +30,17 @@
               <div class="container-fluid px-4">
                 <h1 class="mt-4">Dashboard</h1>
                 <ol class="breadcrumb mb-4">
-                  <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / User / delete </li>
+                  <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Product / delete </li>
                 </ol>
                 <div class="container mt-5">
                   <div class="row">
                     <div class="col-md-6 col-12 mx-auto">
-                      <h3>Delete a user: ID ${userid}</h3>
+                      <h3>Delete a user: ID ${productId}</h3>
                       <hr>
-                      <form:form action="/admin/user/deleteSuccess/${userid}" method="POST" modelAttribute="detailUser">
+                      <form:form action="/admin/product/deleteSuccess/${productId}" method="POST" modelAttribute="detailUser">
                         <div>
                           <p class="border-danger border ps-2 bg-danger bg-opacity-25 text-danger">Delete
-                         USER -ID : ${userid}
+                        Product - ID : ${productId}
                           </p>
                         </div>
                         <a href="/admin/user" class="btn btn-success">Back</a>

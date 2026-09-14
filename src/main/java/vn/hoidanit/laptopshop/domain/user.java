@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -27,18 +28,17 @@ public class User {
 
   @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
   private String email;
-  @NotNull
+  @NotBlank(message = "Vui lòng nhập đầy đủ thông tin User")
   // (?=.*[A-Z])kiểm tra xem ở phía sau có ít nhất một chữ hoa [A-Z] hay không
   // @Pattern(regexp =
   // "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
   // message = "Mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa, chữ thường, số và
   // ký tự đặc biệt")
   private String password;
-  @NotNull
+  @NotBlank(message = "Vui lòng nhập đầy đủ thông tin người dùng")
   private String fullname;
-  @NotNull
+  @NotBlank(message = "Vui lòng nhập đầy đu thông tin người dùng")
   private String address;
-  @NotNull
   @Pattern(regexp = "^(03|05|07|08|09)[0-9]{8}$", message = "Số điện thoại không hợp lệ")
   private String phone;
   private String avatar;
