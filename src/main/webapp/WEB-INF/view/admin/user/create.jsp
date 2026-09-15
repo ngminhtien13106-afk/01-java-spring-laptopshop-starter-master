@@ -59,55 +59,50 @@
                         modelAttribute="newUser">
                         <div class="row">
                           <div class="mb-3 col">
-                            <c:set var="errorEmail" > 
-                                  <form:errors path="email" />
+                            <c:set var="errorEmail">
+                              <form:errors path="email" />
                             </c:set>
                             <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" aria-describedby="emailHelp" path="email" />
+                            <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
+                              aria-describedby="emailHelp" path="email" />
                             <!-- path="email"Spring hiểu rằng: path="email" tương ứng với thuộc tính: newUser.email -->
-                                <form:errors path="email" cssClass="invalid-feedback"/>
-                         
+                            <form:errors path="email" cssClass="invalid-feedback" />
+
                           </div>
                           <div class="mb-3 col">
-                            <c:set var="errorPassword" > 
-                                  <form:errors path="password" />
+                            <c:set var="errorPassword">
+                              <form:errors path="password" />
                             </c:set>
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <form:input type="password" class="form-control  ${not empty errorPassword ? 'is-invalid' : ''}" path="password" />
-                             <form:errors path="password" cssClass="invalid-feedback"/>
+                            <form:input type="password"
+                              class="form-control  ${not empty errorPassword ? 'is-invalid' : ''}" path="password" />
+                            <form:errors path="password" cssClass="invalid-feedback" />
                           </div>
                         </div>
                         <div class="row">
                           <div class="mb-3 col">
-                            <c:set var="errorPhone" > 
-                                  <form:errors path="phone" />
-                            </c:set>
                             <label for="exampleInputPassword1" class="form-label">Phone Number</label>
-                            <form:input type="number" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" path="phone" />
-                            <form:errors path="phone" cssClass="invalid-feedback"/>
+                            <form:input type="number" class="form-control" path="phone" />
                           </div>
 
 
                           <div class="mb-3 col">
-                             <c:set var="errorfullname" > 
-                                  <form:errors path="fullname" />
+                            <c:set var="errorfullname">
+                              <form:errors path="fullname" />
                             </c:set>
                             <label for="exampleInputPassword1" class="form-label">Full Name</label>
-                            <form:input type="text" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" path="fullname" />
-                              <form:errors path="fullname" cssClass="invalid-feedback"/>
+                            <form:input type="text" class="form-control ${not empty errorfullname ? 'is-invalid' : ''}"
+                              path="fullname" />
+                            <form:errors path="fullname" cssClass="invalid-feedback" />
                           </div>
                         </div>
                         <div class="mb-3">
-                            <c:set var="erroraddress" > 
-                                  <form:errors path="address" />
-                            </c:set>
                           <label for="exampleInputPassword1" class="form-label">Address</label>
-                          <form:input type="text" class="form-control ${not empty erroraddress ? 'is-invalid' : '' }" path="address" />
-                            <form:errors path="address" cssClass="invalid-feedback"/>
+                          <form:input type="text" class="form-control " path="address" />
                         </div>
 
                         <div class="row">
-                          <div class="mb-3 col">                           
+                          <div class="mb-3 col">
                             <label for="avatarFile" class="form-label">Avatar</label>
                             <input class="form-control" type="file" id="avatarFile" accept=".jpg , .png , .jpeg"
                               name="file" />

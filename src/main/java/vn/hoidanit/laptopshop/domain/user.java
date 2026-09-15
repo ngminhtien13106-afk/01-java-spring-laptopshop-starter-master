@@ -15,6 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import vn.hoidanit.laptopshop.service.validator.StrongPassword;
 
 @Entity
 @Table(name = "Users")
@@ -28,18 +29,20 @@ public class User {
 
   @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
   private String email;
-  @NotBlank(message = "Vui lòng nhập đầy đủ thông tin User")
+  // @NotBlank(message = "Vui lòng nhập đầy đủ thông tin User")
   // (?=.*[A-Z])kiểm tra xem ở phía sau có ít nhất một chữ hoa [A-Z] hay không
   // @Pattern(regexp =
   // "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
   // message = "Mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa, chữ thường, số và
   // ký tự đặc biệt")
+  @StrongPassword
   private String password;
-  @NotBlank(message = "Vui lòng nhập đầy đủ thông tin người dùng")
+  @NotBlank(message = "Vui lòng nhập đầy đủ FullName người dùng")
   private String fullname;
-  @NotBlank(message = "Vui lòng nhập đầy đu thông tin người dùng")
+  // @NotBlank(message = "Vui lòng nhập đầy đu thông tin người dùng")
   private String address;
-  @Pattern(regexp = "^(03|05|07|08|09)[0-9]{8}$", message = "Số điện thoại không hợp lệ")
+  // @Pattern(regexp = "^(03|05|07|08|09)[0-9]{8}$", message = "Số điện thoại
+  // không hợp lệ")
   private String phone;
   private String avatar;
 
