@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +11,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Products")
@@ -24,6 +24,7 @@ public class Product {
   private double price;
   private String image;
   @NotBlank(message = "Vui lòng nhập đầy đủ thông tin sản phẩm")
+  @Column(columnDefinition = "MEDIUMTEXT ")
   private String detailDesc;
   @NotBlank(message = "Vui lòng nhập đầy đủ thông tin sản phẩm")
   private String shortDesc;
@@ -117,11 +118,19 @@ public class Product {
     this.target = target;
   }
 
+  public List<Order_detail> getOrder_details() {
+    return order_details;
+  }
+
+  public void setOrder_details(List<Order_detail> order_details) {
+    this.order_details = order_details;
+  }
+
   @Override
   public String toString() {
     return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", detailDesc="
         + detailDesc + ", shortDesc=" + shortDesc + ", quantity=" + quantity + ", sold=" + sold + ", factory=" + factory
-        + ", target=" + target + "]";
+        + ", target=" + target + ", order_details=" + order_details + "]";
   }
 
 }

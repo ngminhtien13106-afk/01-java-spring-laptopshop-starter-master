@@ -32,4 +32,9 @@ public class ProductService {
   public Product handleDeleteProduct(long id) {
     return this.productRepository.deleteById(id);
   }
+
+  public List<Object[]> countProductByFactory() {
+    return this.productRepository.countProductByFactory();
+  }
+
 }

@@ -90,19 +90,17 @@ public class productController {
       @RequestParam("file") MultipartFile file,
       Model model) {
 
-    List<FieldError> errors = newProductbBindingResult.getFieldErrors();
-    for (FieldError error : errors) {
-      System.out.print(">>>" + error.getField() + error.getDefaultMessage());
-    }
-
     if (newProductbBindingResult.hasErrors()) {
       model.addAttribute("newProduct", product);
       model.addAttribute("productId", productId);
       return "/admin/product/updateProduct";
     }
     Product product2 = this.productService.getProductId(productId);
-    String imgproduct = this.uploadService.handleSaveUploadFile(file, "images/product");
-    product2.setImage(imgproduct);
+    if (!file.isEmpty()) {
+      String imgproduct = this.uploadService.handleSaveUploadFile(file, "images/product");
+
+      product2.setImage(imgproduct);
+    }
     product2.setName(product.getName());
     product2.setPrice(product.getPrice());
     product2.setDetailDesc(product.getDetailDesc());
