@@ -156,7 +156,7 @@
                         <p style="font-size: 13px;">${randomproduct.shortDesc}</p>
                         <div class="d-flex  flex-lg-wrap">
                           <p style="font-size: 15px; text-align: center; width: 100%;" class="text-dark fw-bold mb-3">
-                            <fmt:formatNumber type="Number" value="${product.price}" />đ
+                            <fmt:formatNumber type="Number" value="${randomproduct.price}" />đ
                           </p>
                           <a href="/product/${randomproduct.id}"
                             class="mx-auto btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
