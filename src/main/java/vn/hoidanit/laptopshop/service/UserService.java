@@ -40,6 +40,11 @@ public class UserService {
     return this.userRepository.deleteById(id);
   }
 
+  public User getUserByEmail(String email){ 
+    return this.userRepository.findByEmail(email); 
+     
+  }
+
   // Role
   public Role getRoleName(String name) {
     return this.roleRepository.findByName(name);

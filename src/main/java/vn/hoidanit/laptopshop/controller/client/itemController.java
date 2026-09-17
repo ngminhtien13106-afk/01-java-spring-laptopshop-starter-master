@@ -25,17 +25,15 @@ public class itemController {
     Product products = this.productService.getProductId(productid);
     List<Object[]> result = this.productService.countProductByFactory();
     // random
-    List<Product> allProduct = this.productService.getAllProducts();
     List<Product> randomProducts = new ArrayList<>();
-    Random random = new Random();
 
-    while (randomProducts.size() < 6 && randomProducts.size() < allProduct.size()) {
-
-      Product randomProduct = allProduct.get(
-          random.nextInt(allProduct.size()));
-
+    while (randomProducts.size() < 3) {
+      int randomNumber = (int) (Math.random() * 5);
+      Product randomProduct = this.productService.getProductId(randomNumber);
       if (!randomProducts.contains(randomProduct)) {
-        randomProducts.add(randomProduct);
+        if (randomNumber != 0) {
+          randomProducts.add(randomProduct);
+        }
       }
     }
 

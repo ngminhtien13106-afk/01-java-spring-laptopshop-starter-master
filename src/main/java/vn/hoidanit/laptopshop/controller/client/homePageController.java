@@ -30,14 +30,18 @@ public class homePageController {
     }
 
     // random
-    List<Product> allproducts = this.productService.getAllProducts();
+
     List<Product> randomProducts = new ArrayList<>();
-    Random random = new Random();
-    while (randomProducts.size() < 7 && randomProducts.size() < allproducts.size()) {
-      Product product = allproducts.get(random.nextInt(allproducts.size()));
+
+    while (randomProducts.size() < 3) {
+
+      int randomNumber = (int) (Math.random() * 5);
+      Product product = this.productService.getProductId(randomNumber);
 
       if (!randomProducts.contains(product)) {
-        randomProducts.add(product);
+        if (randomNumber != 0) {
+          randomProducts.add(product);
+        }
       }
 
     }

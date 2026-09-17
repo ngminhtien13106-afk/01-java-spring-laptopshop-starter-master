@@ -136,7 +136,7 @@
                 <c:forEach var="randomproduct" items="${randomProducts}">
                   <div class="col-lg-6 col-xl-4">
                     <div class="p-4 rounded bg-light">
-                      <div class="row align-items-center">
+                      <div class="row align-items-center" style="height: 160px;">
                         <div class="col-6">
                           <img src="images/product/${randomproduct.image}" class="img-fluid  w-100" alt="">
                         </div>
