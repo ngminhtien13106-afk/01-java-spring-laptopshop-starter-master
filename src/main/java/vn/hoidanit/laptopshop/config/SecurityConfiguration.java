@@ -10,7 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import jakarta.servlet.DispatcherType;
 import vn.hoidanit.laptopshop.service.CustomUserDetailsService;
 import vn.hoidanit.laptopshop.service.UserService;
 
@@ -20,27 +23,18 @@ import vn.hoidanit.laptopshop.service.UserService;
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
+  // hashcode
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
+  // Check username - password
   @Bean
   public UserDetailsService userDetailsService(UserService userService) {
     return new CustomUserDetailsService(userService);
   }
 
-  // @Bean
-  // public AuthenticationManager authenticationManager(HttpSecurity http,
-  // PasswordEncoder passwordEncoder,
-  // UserDetailsService userDetailsService) throws Exception {
-  // AuthenticationManagerBuilder authenticationManagerBuilder = http
-  // .getSharedObject(AuthenticationManagerBuilder.class);
-  // authenticationManagerBuilder
-  // .userDetailsService(userDetailsService)
-  // .passwordEncoder(passwordEncoder);
-  // return authenticationManagerBuilder.build();
-  // }
   @Bean
   public DaoAuthenticationProvider authProvider(
       PasswordEncoder passwordEncoder,
@@ -53,6 +47,46 @@ public class SecurityConfiguration {
     // authProvider.setHideUserNotFoundExceptions(false);
 
     return authProvider;
+
+  }
+
+  // Giao diện login
+
+  @Bean
+  public AuthenticationSuccessHandler CustomSuccessHandle() {
+    return new CustomSuccessHandle();
+  }
+
+  @Bean
+  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(authorize -> authorize
+            // DispatcherType.FORWARD cho phép render các return requets/.jsp, mỗi return
+            // jsp đều tính là request
+            .dispatcherTypeMatchers(DispatcherType.FORWARD,
+                // DispatcherType.INCLUDE cho phép sử dụng các trường thông tin của request
+                // method
+                DispatcherType.INCLUDE)
+            .permitAll()
+
+            .requestMatchers("/", "product/**", "/register", "/login", "/avatar", "/client/**", "/css/**", "/js/**",
+                "/images/**")
+            .permitAll()
+
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+
+            .anyRequest().authenticated())
+
+        .formLogin(formLogin -> formLogin
+            // chuyển đổi login , mỗi lần request chạy /login
+            .loginPage("/login")
+            // login thất bại chạy request này
+            .failureUrl("/login?error")
+            .successHandler(CustomSuccessHandle())
+            // All đều có quyền truy cập
+            .permitAll());
+
+    return http.build();
   }
 
 }
