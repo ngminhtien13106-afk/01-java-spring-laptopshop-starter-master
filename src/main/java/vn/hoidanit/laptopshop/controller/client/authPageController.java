@@ -59,4 +59,9 @@ public class authPageController {
     return "client/auth/login";
   }
 
+  @RequestMapping("/access-dinied")
+  public String hanldAdministratorAuthentication() {
+    return "client/auth/administratorAuthentication";
+  }
+
 }

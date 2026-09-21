@@ -20,16 +20,19 @@ import jakarta.servlet.http.HttpSession;
 public class CustomSuccessHandle implements AuthenticationSuccessHandler {
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+  // Authentication authentication: thông tin về người dùng sau khi Spring
+  // Security xác thực.
   protected String determineTargetUrl(final Authentication authentication) {
-
+    // map giống như object js => key: value
     Map<String, String> roleTargetUrlMap = new HashMap<>();
     roleTargetUrlMap.put("ROLE_USER", "/");
     roleTargetUrlMap.put("ROLE_ADMIN", "/admin");
-
+    // getAuthorities() lấy ra quyền/role của user.
     final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
     for (final GrantedAuthority grantedAuthority : authorities) {
       String authorityName = grantedAuthority.getAuthority();
       if (roleTargetUrlMap.containsKey(authorityName)) {
+        // return về url tương ứng
         return roleTargetUrlMap.get(authorityName);
       }
     }
@@ -52,6 +55,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
     redirectStrategy.sendRedirect(request, response, targetUrl);
   }
 
+  // Kiểm tra session nếu không có thì dừng lại , còn có thì dùng nó
   protected void clearAuthenticationAttributes(HttpServletRequest request) {
     HttpSession session = request.getSession(false);
     if (session == null) {

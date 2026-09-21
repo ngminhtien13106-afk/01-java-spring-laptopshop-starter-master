@@ -25,6 +25,15 @@
     z-index: 99;
 }
 
+.a-Hover {
+    background-color: #81c408;
+    border-radius: 3px;
+}
+
+.a-Hover:hover {
+    background-color: rgb(2, 169, 2);
+}
+
 /*** Spinner End ***/
 
 

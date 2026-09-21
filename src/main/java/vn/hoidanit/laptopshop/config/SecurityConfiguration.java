@@ -72,7 +72,7 @@ public class SecurityConfiguration {
             .requestMatchers("/", "product/**", "/register", "/login", "/avatar", "/client/**", "/css/**", "/js/**",
                 "/images/**")
             .permitAll()
-
+            // Sử lý auth admintrastor
             .requestMatchers("/admin/**").hasRole("ADMIN")
 
             .anyRequest().authenticated())
@@ -83,8 +83,11 @@ public class SecurityConfiguration {
             // login thất bại chạy request này
             .failureUrl("/login?error")
             .successHandler(CustomSuccessHandle())
+
             // All đều có quyền truy cập
-            .permitAll());
+            .permitAll())
+
+        .exceptionHandling(ex -> ex.accessDeniedPage("/access-dinied"));
 
     return http.build();
   }
