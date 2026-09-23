@@ -7,11 +7,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import jakarta.servlet.DispatcherType;
 import vn.hoidanit.laptopshop.service.CustomUserDetailsService;
@@ -57,6 +59,15 @@ public class SecurityConfiguration {
     return new CustomSuccessHandle();
   }
 
+  // Session -> remember
+  @Bean
+  public SpringSessionRememberMeServices rememberMeServices() {
+    SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+    // optionally customize
+    rememberMeServices.setAlwaysRemember(true);
+    return rememberMeServices;
+  }
+
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
@@ -76,7 +87,18 @@ public class SecurityConfiguration {
             .requestMatchers("/admin/**").hasRole("ADMIN")
 
             .anyRequest().authenticated())
+        .sessionManagement((sessionManagement) -> sessionManagement
+            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+            // logout hết hạn chạy request này
+            .invalidSessionUrl("/logout?expired")
+            // Giới hạn tài khoản login
+            .maximumSessions(1)
+            // Người thứ 2 login sẽ đá người thứ 1
+            .maxSessionsPreventsLogin(false))
 
+        .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+        // Sử dụng rememberme Gia hạn logout thành 30 ngày
+        .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
         .formLogin(formLogin -> formLogin
             // chuyển đổi login , mỗi lần request chạy /login
             .loginPage("/login")

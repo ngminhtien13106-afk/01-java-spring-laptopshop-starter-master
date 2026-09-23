@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -16,9 +18,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UserService;
 
 public class CustomSuccessHandle implements AuthenticationSuccessHandler {
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+  @Autowired
+  private UserService userService;
 
   // Authentication authentication: thông tin về người dùng sau khi Spring
   // Security xác thực.
@@ -56,11 +62,22 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
   }
 
   // Kiểm tra session nếu không có thì dừng lại , còn có thì dùng nó
-  protected void clearAuthenticationAttributes(HttpServletRequest request) {
+  protected void clearAuthenticationAttributes(HttpServletRequest request, Authentication authentication) {
     HttpSession session = request.getSession(false);
     if (session == null) {
       return;
     }
+
+    // get email
+    String currentPrincipalName = authentication.getName();
+    // query email
+    User user = this.userService.getUserByEmail(currentPrincipalName);
+
+    if (user != null) {
+      session.setAttribute("fullName", user.getFullname());
+      session.setAttribute("avatar", user.getAvatar());
+    }
+
     session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
   }
 
@@ -69,7 +86,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
       Authentication authentication) throws IOException, ServletException {
     // TODO Auto-generated method stub
     handle(request, response, authentication);
-    clearAuthenticationAttributes(request);
+    clearAuthenticationAttributes(request, authentication);
   }
 
 }

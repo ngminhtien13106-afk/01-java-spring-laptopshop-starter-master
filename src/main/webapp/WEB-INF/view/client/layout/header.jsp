@@ -56,36 +56,45 @@
 
                     <ul class="dropdown-menu dropdown-menu-end p-4" aria-labelledby="dropdownMenuLink">
                       <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
-                        <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
-                          src="/images/product/1711078092373-asus-01.png" />
-                        <div class="text-center my-3">
+                        <c:if test="${not empty sessionScope.avatar}">
+                          <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
+                            src="/images/avatar/${sessionScope.avatar}" />
+                          <div class="text-center my-3">
+                        </c:if>
+                        <c:if test="${ empty sessionScope.avatar}">
+                          <img
+                            style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; padding-top: 60px;"
+                            alt="Update Images" />
 
-                          <c:out value="${pageContext.request.userPrincipal.name}" />
-                        </div>
-                      </li>
+                          <div class="text-center my-3">
+                        </c:if>
 
-                      <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
-
-                      <li><a class="dropdown-item" href="#">Lịch sử mua hàng</a></li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <form action="/logout" method="post">
-                        <li><button class="dropdown-item"> Đăng xuất</button></li>
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                      </form>
-                    </ul>
+                        <c:out value="${sessionScope.fullName}" />
                   </div>
-                </c:if>
+                  </li>
 
-                <c:if test="${ empty pageContext.request.userPrincipal}">
-                  <div class="a-Hover">
-                    <a style="color: #F4F6F8;" href="/login" class="mx-3">Đăng nhập</a>
-                  </div>
-                </c:if>
+                  <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+
+                  <li><a class="dropdown-item" href="#">Lịch sử mua hàng</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <form action="/logout" method="post">
+                    <li><button class="dropdown-item"> Đăng xuất</button></li>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                  </form>
+                  </ul>
               </div>
+              </c:if>
+
+              <c:if test="${ empty pageContext.request.userPrincipal}">
+                <div class="a-Hover">
+                  <a style="color: #F4F6F8;" href="/login" class="mx-3">Đăng nhập</a>
+                </div>
+              </c:if>
             </div>
-          </nav>
         </div>
+        </nav>
+      </div>
       </div>
       <!-- Navbar End -->
