@@ -20,7 +20,7 @@ public class Product {
   private long id;
   @NotBlank(message = "Vui lòng nhập đầy đủ thông tin sản phẩm")
   private String name;
-  @Min(value = 1, message = "Số lượng phải lớn hơn 0")
+  @Min(value = 1, message = "Sản phẩm phải có giá")
   private double price;
   private String image;
   @NotBlank(message = "Vui lòng nhập đầy đủ thông tin sản phẩm")
@@ -34,6 +34,9 @@ public class Product {
   @NotBlank(message = "Vui lòng nhập đầy đủ thông tin sản phẩm")
   private String factory;
   private String target;
+
+  @OneToMany(mappedBy = "product")
+  private List<CartDetail> cartDetails;
 
   @OneToMany(mappedBy = "product")
   private List<Order_detail> order_details;
@@ -124,6 +127,14 @@ public class Product {
 
   public void setOrder_details(List<Order_detail> order_details) {
     this.order_details = order_details;
+  }
+
+  public List<CartDetail> getCartDetails() {
+    return cartDetails;
+  }
+
+  public void setCartDetails(List<CartDetail> cartDetails) {
+    this.cartDetails = cartDetails;
   }
 
   @Override

@@ -41,7 +41,7 @@
 
                 <c:if test="${not empty pageContext.request.userPrincipal}">
 
-
+<!-- cart -->
                   <a href="#" class="position-relative me-4 my-auto">
                     <i class="fa fa-shopping-bag fa-2x"></i>
                     <span
