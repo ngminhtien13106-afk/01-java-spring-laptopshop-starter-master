@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
+import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.service.ProductService;
 
 @Controller
 public class itemController {
+  private final CartDetailRepository cartDetailRepository;
   private final ProductService productService;
 
-  public itemController(ProductService productService) {
+  public itemController(ProductService productService, CartDetailRepository cartDetailRepository) {
     this.productService = productService;
+    this.cartDetailRepository = cartDetailRepository;
   }
 
   @RequestMapping("/product/{productid}")
@@ -51,8 +55,30 @@ public class itemController {
   public String addProductToCard(HttpServletRequest request, @PathVariable long id) {
     HttpSession session = request.getSession(false);
     String email = (String) session.getAttribute("email");
-    this.productService.hanldAddProductToCart(id, email);
+    this.productService.hanldAddProductToCart(id, email, session);
 
     return "redirect:/";
+  }
+
+  @RequestMapping(value = "/product/addProductDetailToCart/{id}", method = RequestMethod.POST)
+  public String addProductDetailToCard(HttpServletRequest request, @PathVariable long id) {
+    HttpSession session = request.getSession(false);
+    String email = (String) session.getAttribute("email");
+    this.productService.hanldAddProductToCart(id, email, session);
+
+    return "redirect:/product/{id}";
+  }
+
+  @RequestMapping("/productToCartDetail")
+  public String ShowCartDetails(Model model, HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    String email = (String) session.getAttribute("email");
+
+    List<CartDetail> cartDetails = this.productService.handleCartDetails(email);
+
+    double calculation ; 
+    model.addAttribute("cartDetail", cartDetails);
+
+    return "client/product/cartDetail";
   }
 }

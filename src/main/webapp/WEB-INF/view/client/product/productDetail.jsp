@@ -97,8 +97,17 @@
                           </button>
                         </div>
                       </div>
-                      <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                          class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+
+                      <form class="d-flex flex-column bd-highlight mb-3"
+                        action="/product/addProductDetailToCart/${product.id}" method="post">
+                        <p style="font-size: 15px; text-align: center; width: 100%;" class="text-dark fw-bold mb-0">
+                          <fmt:formatNumber type="Number" value="${product.price}" />đ
+                        </p>
+                        <button type="submit" class="btn btn-on-click-c btn-primary">Add Cart
+                          Product</button>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                      </form>
+
                     </div>
                     <div class="col-lg-12">
                       <nav>
