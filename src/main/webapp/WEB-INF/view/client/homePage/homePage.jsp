@@ -150,12 +150,15 @@
                             <i class="fas fa-star text-primary"></i>
                             <i class="fas fa-star "></i>
                           </div>
-                          <h4 class="mb-3">
-                            <fmt:formatNumber type="Number" value="${randomproduct.price}" />đ
-                          </h4>
-                          <a href="/product/${randomproduct.id}"
-                            class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                              class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+
+                          <form action="/product/addProductToCart/${randomproduct.id}" method="post">
+                            <h4 class="mb-3">
+                              <fmt:formatNumber type="Number" value="${randomproduct.price}" />đ
+                            </h4>
+                            <button type="submit" class="btn btn-on-click-c btn-primary">Add Cart
+                              Product</button>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                          </form>
                         </div>
                       </div>
                     </div>

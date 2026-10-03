@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.tags.shaded.org.apache.regexp.recompile;
 import org.springframework.stereotype.Service;
@@ -98,6 +99,32 @@ public class ProductService {
     Cart cart = this.cartRepository.findByUser(user);
     return this.cartDetailRepository.findByCart(cart);
 
+  }
+
+  public void handleDeleteCart(long id, HttpSession session) {
+
+    CartDetail cartDetail = this.cartDetailRepository.findById(id);
+
+    if (cartDetail == null) {
+      return;
+    }
+
+    long idCart = cartDetail.getCart().getId();
+
+    this.cartDetailRepository.deleteById(id);
+
+    Cart cart = this.cartRepository.findById(idCart);
+
+    if (cart == null) {
+      return;
+    }
+
+    if (cart.getSum() > 0) {
+      cart.setSum(cart.getSum() - 1);
+      this.cartRepository.save(cart);
+
+      session.setAttribute("cart", cart.getSum());
+    }
   }
 
 }

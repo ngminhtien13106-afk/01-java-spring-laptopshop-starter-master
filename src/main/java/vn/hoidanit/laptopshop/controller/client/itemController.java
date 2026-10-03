@@ -75,10 +75,20 @@ public class itemController {
     String email = (String) session.getAttribute("email");
 
     List<CartDetail> cartDetails = this.productService.handleCartDetails(email);
-
-    double calculation ; 
+    double totalPrice = 0;
+    for (CartDetail cd : cartDetails) {
+      totalPrice += cd.getPrice() * cd.getQuantity();
+    }
     model.addAttribute("cartDetail", cartDetails);
+    model.addAttribute("totalPrice", totalPrice);
 
     return "client/product/cartDetail";
+  }
+
+  @RequestMapping(value = "/product/deleteProductToCart/{id}", method = RequestMethod.POST)
+  public String deleteProductToCart(@PathVariable long id, HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    this.productService.handleDeleteCart(id, session);
+    return "redirect:/productToCartDetail";
   }
 }
