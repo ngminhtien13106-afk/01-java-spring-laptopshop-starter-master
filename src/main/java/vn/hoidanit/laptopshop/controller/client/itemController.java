@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
@@ -24,6 +25,7 @@ public class itemController {
   public itemController(ProductService productService, CartDetailRepository cartDetailRepository) {
     this.productService = productService;
     this.cartDetailRepository = cartDetailRepository;
+
   }
 
   @RequestMapping("/product/{productid}")

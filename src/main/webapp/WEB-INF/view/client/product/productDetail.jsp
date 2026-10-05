@@ -100,9 +100,7 @@
 
                       <form class="d-flex flex-column bd-highlight mb-3"
                         action="/product/addProductDetailToCart/${product.id}" method="post">
-                        <p style="font-size: 15px; text-align: center; width: 100%;" class="text-dark fw-bold mb-0">
-                          <fmt:formatNumber type="Number" value="${product.price}" />đ
-                        </p>
+
                         <button type="submit" class="btn btn-on-click-c btn-primary">Add Cart
                           Product</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

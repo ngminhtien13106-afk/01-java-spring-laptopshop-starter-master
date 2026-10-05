@@ -172,6 +172,13 @@
         const price = input.attr("data-cart-detail-price");
         const id = input.attr("data-cart-detail-id");
 
+        // Đồng bộ quantity sang form checkout
+           const checkoutQuantity = $( `.checkoutQuantity[data-cart-detail-id='${id}']`);
+
+           if (checkoutQuantity.length) {
+           checkoutQuantity.val(newVal);
+            }
+
         const priceElement = $(`p[data-cart-detail-id='${id}']`);
         if (priceElement) {
             const newPrice = +price * newVal;
@@ -219,6 +226,8 @@
     }
 
 })(jQuery);
+
+
 
 
 

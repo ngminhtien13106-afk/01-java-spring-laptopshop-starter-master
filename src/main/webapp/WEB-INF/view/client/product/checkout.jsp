@@ -2,7 +2,6 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
       <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
         <!DOCTYPE html>
         <html lang="en">
 
@@ -62,12 +61,12 @@
                       <th scope="col">Giá</th>
                       <th scope="col">Số lượng</th>
                       <th scope="col">Thành tiền</th>
-                      <th scope="col">Xoá</th>
+
                     </tr>
                   </thead>
                   <tbody>
 
-                    <c:forEach var="productToCartDetail" items="${cartDetail}">
+                    <c:forEach var="productToCartDetail" items="${cartDetails}">
 
                       <tr>
                         <th scope="row">
@@ -86,21 +85,13 @@
                         </td>
                         <td>
                           <div class="input-group quantity mt-4" style="width: 100px;">
-                            <!-- Trừ -->
-                            <div class="input-group-btn">
-                              <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                <i class="fa fa-minus"></i>
-                              </button>
-                            </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0 inputToCheckout"
+
+                            <!-- Số lượng -->
+                            <input type="text" class="form-control form-control-sm text-center border-0 inputCheckout"
                               value="${productToCartDetail.quantity}" data-cart-detail-id="${productToCartDetail.id}"
                               data-cart-detail-price="${productToCartDetail.price}">
-                            <!-- Cộng -->
-                            <div class="input-group-btn">
-                              <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                <i class="fa fa-plus"></i>
-                              </button>
-                            </div>
+
+
                           </div>
                         </td>
                         <td>
@@ -112,18 +103,7 @@
                             <fmt:formatNumber type="Number" value="${Total}" />đ
                           </p>
                         </td>
-                        <!-- btn Xoa -->
-                        <td>
-                          <form action="/product/deleteProductToCart/${productToCartDetail.id}" method="post">
 
-
-                            <button type="submit" class="btn btn-md rounded-circle bg-light border mt-4">
-                              <i class="fa fa-times text-danger"></i>
-                            </button>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                          </form>
-
-                        </td>
 
                       </tr>
 
@@ -131,77 +111,117 @@
                   </tbody>
                 </table>
               </div>
-              <c:if test="${ empty cartDetail}">
-                <p>Chưa có sản phẩm trong giỏ hàng</p>
-              </c:if>
-              <c:if test="${not empty cartDetail}">
-                <div class="row g-4 mt-5">
 
-                  <div class="col-sm-8 col-md-7 col-lg-6 col-xl-7">
+
+
+              <div>
+                <form class="row g-5 mt-5" action="/checkout/getInformation" method="post">
+                  <!-- Thông tin người nhận -->
+                  <div class="col-md-12 col-lg-6">
+
+                    <div class="p-4">
+                      <h1 class="mb-4">Thông tin người nhận</h1>
+                      <!-- Tên người nhận -->
+                      <div class="form-item mb-3">
+                        <label class="form-label my-2">
+                          Tên người nhận <sup>*</sup>
+                        </label>
+                        <input type="text" name="fullName" class="form-control" placeholder="VD: Nguyễn Văn A">
+                      </div>
+                      <!-- Địa chỉ -->
+                      <div class="form-item mb-3">
+                        <label class="form-label my-2">
+                          Địa chỉ nhận hàng <sup>*</sup>
+                        </label>
+                        <input type="text" name="address" class="form-control" placeholder="Xã: - , Huyện - , TP -">
+                      </div>
+                      <!-- Số điện thoại -->
+                      <div class="form-item mb-3">
+                        <label class="form-label my-2">
+                          Số điện thoại <sup>*</sup>
+                        </label>
+                        <input type="text" name="phoneNumber" class="form-control" placeholder="84+ 123456789">
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <!-- Tổng quan đơn hàng -->
+                  <div class="col-md-12 col-lg-6">
                     <div class="bg-light rounded">
                       <div class="p-4">
-                        <h1 class="display-5 mb-4">Thông tin đơn hàng</h1>
+                        <h1 class="display-5 mb-4">
+                          Thông tin đơn hàng
+                        </h1>
+                        <!-- Tạm tính -->
                         <div class="d-flex justify-content-between mb-4">
-                          <h5 class="mb-0 me-4">Tạm tính</h5>
+                          <h5 class="mb-0 me-4">
+                            Tạm tính
+                          </h5>
                           <p class="mb-0" data-cart-total-price="${totalPrice}">
                             <fmt:formatNumber type="Number" value="${totalPrice}" />đ
                           </p>
                         </div>
+                        <!-- Phí vận chuyển -->
                         <div class="d-flex justify-content-between">
-                          <h5 class="mb-0 me-4">Phí vận chuyển</h5>
-                          <div class="">
-                            <p class="mb-0">0đ</p>
-                          </div>
+                          <h5 class="mb-0 me-4">
+                            Phí vận chuyển
+                          </h5>
+                          <p class="mb-0">
+                            0đ
+                          </p>
                         </div>
-                        <p class="mb-0 text-end">Miễn phí</p>
+                        <p class="mb-0 text-end">
+                          Miễn phí
+                        </p>
                       </div>
-                      <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                        <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
-                        <p class="mb-0" data-cart-total-price="${totalPrice}">
+                      <!-- Tổng tiền -->
+                      <div class="py-4 mb-4 border-top border-bottom
+                        d-flex justify-content-between">
+                        <h5 class="mb-0 ps-4">
+                          Tổng số tiền
+                        </h5>
+                        <p class="mb-0 pe-4">
                           <fmt:formatNumber type="Number" value="${totalPrice}" />đ
                         </p>
                       </div>
-                      <form action="/configuration/checkout" method="post" id="checkoutForm">
-
-                        <c:forEach var="productToCartDetail" items="${cartDetail}">
-
-                          <input type="hidden" name="cartDetailIds" value="${productToCartDetail.id}">
-
-                          <input type="hidden" name="quantities" value="${productToCartDetail.quantity}"
-                            class="checkoutQuantity" data-cart-detail-id="${productToCartDetail.id}">
-
-                        </c:forEach>
-
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-
-                        <button
-                          class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4 btnToCheckout"
-                          type="submit">
-                          Thanh toán
+                      <!-- Nút thanh toán -->
+                      <div class="px-4 pb-4">
+                        <button class="btn border-secondary rounded-pill
+                           px-4 py-3 text-primary
+                           text-uppercase w-100" type="submit">
+                          Xác nhận thanh toán
                         </button>
+                      </div>
+                      <!-- CSRF -->
 
-                      </form>
                     </div>
                   </div>
-                </div>
-              </c:if>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+
+              <div>
+                <a href="/productToCartDetail">Quay Lại</a>
+              </div>
+
             </div>
-          </div>
-          <!-- Single Product End -->
+            <!-- Single Product End -->
 
-          <jsp:include page="../layout/footer.jsp" />
+            <jsp:include page="../layout/footer.jsp" />
 
 
-          <!-- JavaScript Libraries -->
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-          <script src="../client/lib/easing/easing.min.js"></script>
-          <script src="../client/lib/waypoints/waypoints.min.js"></script>
-          <script src="../client/lib/lightbox/js/lightbox.min.js"></script>
-          <script src="../client/lib/owlcarousel/owl.carousel.min.js"></script>
+            <!-- JavaScript Libraries -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="../client/lib/easing/easing.min.js"></script>
+            <script src="../client/lib/waypoints/waypoints.min.js"></script>
+            <script src="../client/lib/lightbox/js/lightbox.min.js"></script>
+            <script src="../client/lib/owlcarousel/owl.carousel.min.js"></script>
 
-          <!-- Template Javascript -->
-          <script src="../client/js/main.js"></script>
+            <!-- Template Javascript -->
+            <script src="../client/js/main.js"></script>
         </body>
 
         </html>

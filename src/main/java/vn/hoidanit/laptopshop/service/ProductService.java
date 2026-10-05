@@ -55,6 +55,10 @@ public class ProductService {
     return this.productRepository.countProductByFactory();
   }
 
+  public CartDetail getCartDetailId(long id) {
+    return this.cartDetailRepository.findById(id);
+  }
+
   public void hanldAddProductToCart(long id, String email, HttpSession session) {
     User user = this.userService.getUserByEmail(email);
 
