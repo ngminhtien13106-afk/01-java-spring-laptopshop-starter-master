@@ -10,27 +10,37 @@ import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.controller.admin.orderController;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
+import vn.hoidanit.laptopshop.domain.Order_detail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
+import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
+import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
 
 @Service
 public class ProductService {
-  private final orderController orderController;
+
+  private final OrderDetailRepository orderDetailRepository;
+  private final OrderRepository orderRepository;
   private final ProductRepository productRepository;
   private final CartRepository cartRepository;
   private final CartDetailRepository cartDetailRepository;
   private final UserService userService;
 
   public ProductService(ProductRepository productRepository, CartRepository cartRepository,
-      CartDetailRepository cartDetailRepository, UserService userService, orderController orderController) {
+      CartDetailRepository cartDetailRepository, UserService userService,
+      OrderRepository orderRepository, OrderDetailRepository orderDetailRepository) {
     this.productRepository = productRepository;
     this.cartRepository = cartRepository;
     this.cartDetailRepository = cartDetailRepository;
     this.userService = userService;
-    this.orderController = orderController;
+
+    this.orderRepository = orderRepository;
+    this.orderDetailRepository = orderDetailRepository;
+
   }
 
   public Product handleSaveProduct(Product product) {
@@ -129,6 +139,45 @@ public class ProductService {
 
       session.setAttribute("cart", cart.getSum());
     }
+  }
+
+  public void handleRecelveOrder(User id, String receiveFullName, String receiveAddress, String receivePhoneNumber,
+      double totalPrice, HttpSession session) {
+    // step 1: Create Order
+    Order order = new Order();
+    order.setUser(id);
+    order.setReceiveFullName(receiveFullName);
+    order.setReceiveAddress(receiveAddress);
+    order.setReceivePhoneNumber(receivePhoneNumber);
+    order.setTotalPrice(totalPrice);
+    order = this.orderRepository.save(order);
+    // step 2: Create OrderDetail
+    Cart cart = this.cartRepository.findByUser(id);
+    if (cart != null) {
+      List<CartDetail> cartDetails = this.cartDetailRepository.findByCart(cart);
+      if (cartDetails != null) {
+        for (CartDetail cd : cartDetails) {
+
+          Order_detail order_detail = new Order_detail();
+          order_detail.setOrder(order);
+          order_detail.setPrice(cd.getPrice());
+          order_detail.setProduct(cd.getProduct());
+          order_detail.setQuantity(cd.getQuantity());
+
+          this.orderDetailRepository.save(order_detail);
+        }
+        // step 3: delete CartDetail
+        for (CartDetail cd : cartDetails) {
+          this.cartDetailRepository.deleteById(cd.getId());
+        }
+        // step 4: delete Cart
+        this.cartRepository.deleteById(cart.getId());
+
+        // step 5: update session
+        session.setAttribute("cart", 0);
+      }
+    }
+
   }
 
 }

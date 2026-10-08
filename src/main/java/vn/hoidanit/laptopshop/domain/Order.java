@@ -20,6 +20,52 @@ public class Order {
   // private long userId;
   private double totalPrice;
 
+  private String receiveFullName;
+
+  public String getReceiveFullName() {
+    return receiveFullName;
+  }
+
+  public void setReceiveFullName(String receiveFullName) {
+    this.receiveFullName = receiveFullName;
+  }
+
+  public String getReceiveAddress() {
+    return receiveAddress;
+  }
+
+  public void setReceiveAddress(String receiveAddress) {
+    this.receiveAddress = receiveAddress;
+  }
+
+  public String getReceivePhoneNumber() {
+    return receivePhoneNumber;
+  }
+
+  public void setReceivePhoneNumber(String receivePhoneNumber) {
+    this.receivePhoneNumber = receivePhoneNumber;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public List<Order_detail> getOrder_details() {
+    return order_details;
+  }
+
+  public void setOrder_details(List<Order_detail> order_details) {
+    this.order_details = order_details;
+  }
+
+  private String receiveAddress;
+
+  private String receivePhoneNumber;
+
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;

@@ -185,6 +185,7 @@
                         <p class="mb-0 pe-4">
                           <fmt:formatNumber type="Number" value="${totalPrice}" />đ
                         </p>
+                        <input type="hidden" name="totalPrice" value="${totalPrice}">
                       </div>
                       <!-- Nút thanh toán -->
                       <div class="px-4 pb-4">
