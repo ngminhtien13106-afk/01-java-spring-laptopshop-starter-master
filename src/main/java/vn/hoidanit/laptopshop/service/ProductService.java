@@ -180,4 +180,25 @@ public class ProductService {
 
   }
 
+  public List<Order> getAllOrders() {
+    return this.orderRepository.findAll();
+  }
+
+  public List<Order_detail> getOrder_detailsByOrder(Order order) {
+    return this.orderDetailRepository.findByOrder(order);
+  }
+
+  public void handleDeleteOrder(long id, Order order) {
+    // step 1: Xoá Order_detail
+    List<Order_detail> order_details = this.orderDetailRepository.findByOrder(order);
+    if (order_details != null) {
+      for (Order_detail order_detail : order_details) {
+        this.orderDetailRepository.deleteById(order_detail.getId());
+      }
+    }
+
+    // step 2: Xoá Order
+    this.orderRepository.deleteById(id);
+  }
+
 }

@@ -27,39 +27,45 @@
                 <div class="container-fluid px-4">
                   <h1 class="mt-4">Dashboard</h1>
                   <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Order </li>
+                    <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Product </li>
                   </ol>
 
                   <div class="container mt-5">
                     <div class="row">
                       <div class="col-12 mx-auto">
-                        <div class="mb-3">
-                          <h3>Table Order</h3>
-
+                        <div class="d-flex justify-content-around mb-3">
+                          <h3>Table Product</h3>
+                          <a href="/admin/product/createPage" class="btn btn-primary">Create</a>
                         </div>
                         <hr>
                         <table class="table table-bordered table-hover">
                           <thead>
                             <tr>
-                              <th scope="col">ID</th>
-                              <th scope="col">Total Price</th>
-                              <th scope="col">User</th>
-                              <th scope="col">Action</th>
+                              <th scope="col">Product</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">Quantity</th>
 
                             </tr>
                           </thead>
                           <tbody>
-                            <c:forEach var="order" items="${order}">
+                            <c:forEach var="order_details" items="${order_details}">
                               <tr>
-                                <td>${order.id}</td>
                                 <td>
-                                  <fmt:formatNumber type="Number" value="${order.totalPrice}" />đ
+                                  <div class="col-12 ">
+                                    <img style="width: 100px ; height: 70px;"
+                                      src="/images/product/${order_details.product.image}" alt="avatar preview"
+                                      id="avatarPreview">
+                                  </div>
                                 </td>
-                                <td>${order.user.role.name}</td>
-
                                 <td>
-                                  <a href="/admin/order/view/${order.id}" class="btn btn-success">View</a>
-                                  <a href="/admin/order/delete/${order.id}" class="btn btn-danger">Delete</a>
+                                  ${order_details.product.name}
+                                </td>
+                                <td>
+                                  <fmt:formatNumber type="Number" value="${order_details.price}" />đ
+                                </td>
+                                <td>
+                                  ${order_details.quantity}
                                 </td>
                               </tr>
                             </c:forEach>
@@ -67,6 +73,7 @@
                         </table>
                       </div>
                     </div>
+                    <a href="/admin/order" class="btn btn-success mb-3">Back</a>
                   </div>
                 </div>
               </main>
