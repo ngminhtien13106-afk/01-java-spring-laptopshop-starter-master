@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.repository.OrderRepository;
+import vn.hoidanit.laptopshop.repository.ProductRepository;
 import vn.hoidanit.laptopshop.repository.RoleRepository;
 import vn.hoidanit.laptopshop.repository.UserRepository;
 
@@ -13,10 +15,15 @@ import vn.hoidanit.laptopshop.repository.UserRepository;
 public class UserService {
   private final UserRepository userRepository;
   private final RoleRepository roleRepository;
+  private final OrderRepository orderRepository;
+  private final ProductRepository productRepository;
 
-  public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+  public UserService(UserRepository userRepository, RoleRepository roleRepository, ProductRepository productRepository,
+      OrderRepository orderRepository) {
     this.userRepository = userRepository;
     this.roleRepository = roleRepository;
+    this.orderRepository = orderRepository;
+    this.productRepository = productRepository;
   }
 
   public String handleHell() {
@@ -40,13 +47,27 @@ public class UserService {
     return this.userRepository.deleteById(id);
   }
 
-  public User getUserByEmail(String email){ 
-    return this.userRepository.findByEmail(email); 
-     
+  public User getUserByEmail(String email) {
+    return this.userRepository.findByEmail(email);
+
   }
 
   // Role
   public Role getRoleName(String name) {
     return this.roleRepository.findByName(name);
   }
+
+  // Count product , user , order
+  public long getCountUser() {
+    return this.userRepository.count();
+  }
+
+  public long getCountProduct() {
+    return this.productRepository.count();
+  }
+
+  public long getCountOrder() {
+    return this.orderRepository.count();
+  }
+
 }
