@@ -84,25 +84,30 @@
                       <p class="mb-4">
                         ${product.shortDesc}
                       </p>
-                      <div class="input-group quantity mb-5" style="width: 100px;">
+                      <div class="input-group quantity mt-4" style="width: 100px;">
+                        <!-- Trừ -->
                         <div class="input-group-btn">
                           <button class="btn btn-sm btn-minus rounded-circle bg-light border">
                             <i class="fa fa-minus"></i>
                           </button>
                         </div>
-                        <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                        <input type="text" class="form-control form-control-sm text-center border-0 inputToCheckout"
+                          value="1" data-cart-detail-id="${product.id}">
+                        <!-- Cộng -->
                         <div class="input-group-btn">
                           <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                             <i class="fa fa-plus"></i>
                           </button>
                         </div>
                       </div>
-
-                      <form class="d-flex flex-column bd-highlight mb-3"
+                      <!-- insert Product_detail -->
+                      <form class="d-flex flex-column bd-highlight mb-3 mt-3"
                         action="/product/addProductDetailToCart/${product.id}" method="post">
 
                         <button type="submit" class="btn btn-on-click-c btn-primary">Add Cart
                           Product</button>
+                        <input type="hidden" name="quantities" value="1" class="checkoutQuantity"
+                          data-cart-detail-id="${product.id}">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                       </form>
 

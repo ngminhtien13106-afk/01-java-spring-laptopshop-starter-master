@@ -8,11 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order_detail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.service.ProductService;
@@ -29,7 +31,7 @@ public class itemController {
   }
 
   @RequestMapping("/product/{productid}")
-  public String handleProductDetail(Model model, @PathVariable long productid) {
+  public String handleProductDetail(Model model, @PathVariable long productid, HttpServletRequest request) {
     Product products = this.productService.getProductId(productid);
     List<Object[]> result = this.productService.countProductByFactory();
     // random
@@ -44,9 +46,12 @@ public class itemController {
         }
       }
     }
+    // HttpSession session = request.getSession(false);
+    // String email = (String) session.getAttribute("email");
 
+    // List<CartDetail> cartDetails = this.productService.handleCartDetails(email);
+    // model.addAttribute("cartDetail", cartDetails);
     model.addAttribute("randomProducts", randomProducts);
-
     model.addAttribute("factoryCount", result);
     model.addAttribute("product", products);
 
@@ -54,19 +59,21 @@ public class itemController {
   }
 
   @RequestMapping(value = "/product/addProductToCart/{id}", method = RequestMethod.POST)
-  public String addProductToCard(HttpServletRequest request, @PathVariable long id) {
+  public String addProductToCard(HttpServletRequest request, @PathVariable long id,
+      @RequestParam("quantities") long getValQuantitys) {
     HttpSession session = request.getSession(false);
     String email = (String) session.getAttribute("email");
-    this.productService.hanldAddProductToCart(id, email, session);
+    this.productService.hanldAddProductToCart(id, email, session, getValQuantitys);
 
     return "redirect:/";
   }
 
   @RequestMapping(value = "/product/addProductDetailToCart/{id}", method = RequestMethod.POST)
-  public String addProductDetailToCard(HttpServletRequest request, @PathVariable long id) {
+  public String addProductDetailToCard(HttpServletRequest request, @PathVariable long id,
+      @RequestParam("quantities") long getValQuantitys) {
     HttpSession session = request.getSession(false);
     String email = (String) session.getAttribute("email");
-    this.productService.hanldAddProductToCart(id, email, session);
+    this.productService.hanldAddProductToCart(id, email, session, getValQuantitys);
 
     return "redirect:/product/{id}";
   }
@@ -92,5 +99,15 @@ public class itemController {
     HttpSession session = request.getSession(false);
     this.productService.handleDeleteCart(id, session);
     return "redirect:/productToCartDetail";
+  }
+
+  // history buy product
+  @RequestMapping("/history")
+  public String hanldHistoryBuyProduct(HttpServletRequest request, Model model) {
+    HttpSession session = request.getSession(false);
+    String email = (String) session.getAttribute("email");
+    List<Order_detail> order_details = this.productService.handleHistory(email);
+    model.addAttribute("Order_detail", order_details);
+    return "client/product/historyProduct";
   }
 }

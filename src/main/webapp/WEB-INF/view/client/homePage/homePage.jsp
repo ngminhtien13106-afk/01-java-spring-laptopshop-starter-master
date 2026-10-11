@@ -100,6 +100,8 @@
                                       </p>
                                       <button type="submit" class="btn btn-on-click-c btn-primary">Add Cart
                                         Product</button>
+                                      <input type="hidden" name="quantities" value="${1}" class="checkoutQuantity"
+                                        data-cart-detail-id="${product.id}">
                                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     </form>
                                   </div>

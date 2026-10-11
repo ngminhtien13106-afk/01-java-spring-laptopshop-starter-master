@@ -1,5 +1,6 @@
 package vn.hoidanit.laptopshop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +70,7 @@ public class ProductService {
     return this.cartDetailRepository.findById(id);
   }
 
-  public void hanldAddProductToCart(long id, String email, HttpSession session) {
+  public void hanldAddProductToCart(long id, String email, HttpSession session, long getValQuantitys) {
     User user = this.userService.getUserByEmail(email);
 
     if (user != null) {
@@ -93,7 +94,7 @@ public class ProductService {
         cartDetail.setPrice(product.getPrice());
         cartDetail.setProduct(product);
         cartDetail.setCart(cart);
-        cartDetail.setQuantity(1);
+        cartDetail.setQuantity(getValQuantitys);
         // update Cart
         cart.setSum(cart.getSum() + 1);
         session.setAttribute("cart", cart.getSum());
@@ -101,7 +102,7 @@ public class ProductService {
         this.cartDetailRepository.save(cartDetail);
 
       } else {
-        isExistsProductInCart.setQuantity(isExistsProductInCart.getQuantity() + 1);
+        isExistsProductInCart.setQuantity(isExistsProductInCart.getQuantity() + getValQuantitys);
 
       }
     }
@@ -199,6 +200,19 @@ public class ProductService {
 
     // step 2: Xoá Order
     this.orderRepository.deleteById(id);
+  }
+
+  // history
+  public List<Order_detail> handleHistory(String email) {
+    User user = this.userService.getUserByEmail(email);
+    List<Order_detail> order_details = new ArrayList<>();
+    List<Order> order = user.getOrders();
+    for (int i = 0; i < order.size(); i++) {
+      List<Order_detail> order_detail = this.orderDetailRepository.findByOrder(order.get(i));
+      order_details.add(order_detail.get(i));
+    }
+    return order_details;
+
   }
 
 }
