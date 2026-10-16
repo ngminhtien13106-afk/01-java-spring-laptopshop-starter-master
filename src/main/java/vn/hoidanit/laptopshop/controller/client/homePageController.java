@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.ProductService;
@@ -21,13 +25,11 @@ public class homePageController {
   }
 
   @RequestMapping("/")
-  public String getHomePage(Model model) {
+  public String getHomePage(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
     // danh sach show
-    List<Product> products = this.productService.getAllProducts();
-    List<Product> ListProducts = new ArrayList<>();
-    for (int i = 0; i < 4; i++) {
-      ListProducts.add(products.get(i));
-    }
+    Pageable pageable = PageRequest.of(page - 1, 2);
+    Page<Product> products = this.productService.getAllProducts(pageable);
+    List<Product> ListProducts = products.getContent();
 
     // random
 
@@ -45,16 +47,17 @@ public class homePageController {
       }
 
     }
-
+    model.addAttribute("currentPage", page);
+    model.addAttribute("totalPage", products.getTotalPages());
     model.addAttribute("randomProducts", randomProducts);
     model.addAttribute("ListProduct", ListProducts);
 
     return "client/homePage/homePage";
   }
 
-  // @RequestMapping("/product")
-  // public String getProductDetail() {
-  // return "client/product/productDetail";
-  // }
+  @RequestMapping("/product")
+  public String getProductDetail() {
+    return "client/product/productDetail";
+  }
 
 }

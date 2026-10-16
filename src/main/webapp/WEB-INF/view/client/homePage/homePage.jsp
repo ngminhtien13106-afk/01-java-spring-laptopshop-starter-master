@@ -56,6 +56,7 @@
 
           <!-- Fruits Shop Start-->
           <div class="container-fluid fruite py-5">
+
             <div class="container py-5">
               <div class="tab-class text-center">
                 <div class="row g-4">
@@ -112,14 +113,49 @@
                             </div>
                           </c:forEach>
                         </div>
+
                       </div>
                     </div>
                   </div>
+                  <nav aria-label="Page navigation example ">
+                    <ul class="pagination d-flex justify-content-center mt-4 ">
+                      <li class="page-item">
+                        <c:choose>
+                          <c:when test="${currentPage == 1}">
+                            <a class="page-link disabled" aria-disabled="true" tabindex="-1">&laquo;</a>
+                          </c:when>
+                          <c:otherwise>
+                            <a class="page-link" href="/?page=${currentPage - 1}">&laquo;</a>
+                          </c:otherwise>
+                        </c:choose>
+                      </li>
+                      <c:forEach begin="0" end="${totalPage - 1}" varStatus="loop">
+                        <!-- <li><a onclick="getCategoryIndex(${loop.index})" href="#">${categoryName}</a></li> -->
+                        <li class="page-item"><a
+                            class="${(loop.index + 1) eq  currentPage ? 'page-link active' : 'page-link'}"
+                            href="/?page=${loop.index + 1}">${loop.index + 1}</a>
+                        </li>
+                      </c:forEach>
 
+                      <li class="page-item">
+                        <c:choose>
+                          <c:when test="${currentPage == totalPage}">
+                            <a class="page-link disabled" aria-disabled="true" tabindex="-1">&raquo;</a>
+                          </c:when>
+                          <c:otherwise>
+                            <a class="page-link" href="/?page=${currentPage + 1}">&raquo;</a>
+                          </c:otherwise>
+                        </c:choose>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
+
             </div>
+
           </div>
+
           <!-- Fruits Shop End-->
 
 
@@ -179,7 +215,9 @@
 
           <!-- JavaScript Libraries -->
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
           <script src="client/lib/easing/easing.min.js"></script>
           <script src="client/lib/waypoints/waypoints.min.js"></script>
           <script src="client/lib/lightbox/js/lightbox.min.js"></script>

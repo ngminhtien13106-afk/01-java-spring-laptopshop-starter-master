@@ -58,6 +58,8 @@ public class itemController {
     return "client/product/productDetail";
   }
 
+
+
   @RequestMapping(value = "/product/addProductToCart/{id}", method = RequestMethod.POST)
   public String addProductToCard(HttpServletRequest request, @PathVariable long id,
       @RequestParam("quantities") long getValQuantitys) {

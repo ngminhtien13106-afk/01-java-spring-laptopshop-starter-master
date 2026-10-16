@@ -2,6 +2,9 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,9 +59,13 @@ public class UserController {
 
   // Nếu server nhận được request đến /admin/user, hãy chạy method getHomeUser().
   @RequestMapping("/admin/user")
-  public String getHomeUser(Model model) {
-    List<User> users = this.userservice.getAllUsers();
-    model.addAttribute("users1", users);
+  public String getHomeUser(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+    Pageable pageable = PageRequest.of(page - 1, 2);
+    Page<User> users = this.userservice.getAllUsers(pageable);
+    List<User> ListUser = users.getContent();
+    model.addAttribute("currentPage", page);
+    model.addAttribute("totalPage", users.getTotalPages());
+    model.addAttribute("users1", ListUser);
     // render trang /view/admin/user/managementUser.jsp
     return "admin/user/managementUser";
   }
