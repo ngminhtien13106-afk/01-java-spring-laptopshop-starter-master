@@ -34,7 +34,7 @@
 
                 <a href="/" class="nav-item nav-link active">Trang chủ</a>
 
-                <a href="" class="nav-item nav-link">Sản phẩm</a>
+                <a href="/product" class="nav-item nav-link ">Sản phẩm</a>
               </div>
               <div class="d-flex m-3 me-0">
 

@@ -9,10 +9,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.ProductService;
 
@@ -27,7 +30,7 @@ public class homePageController {
   @RequestMapping("/")
   public String getHomePage(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
     // danh sach show
-    Pageable pageable = PageRequest.of(page - 1, 2);
+    Pageable pageable = PageRequest.of(page - 1, 4);
     Page<Product> products = this.productService.getAllProducts(pageable);
     List<Product> ListProducts = products.getContent();
 
@@ -56,8 +59,25 @@ public class homePageController {
   }
 
   @RequestMapping("/product")
-  public String getProductDetail() {
-    return "client/product/productDetail";
+  public String showAllProduct(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+    Pageable pageable = PageRequest.of(page - 1, 10);
+    Page<Product> products = this.productService.getAllProducts(pageable);
+    List<Product> ListProducts = products.getContent();
+    model.addAttribute("currentPage", page);
+    model.addAttribute("totalPage", products.getTotalPages());
+
+    model.addAttribute("ListProduct", ListProducts);
+    return "client/product/allProduct";
+  }
+
+  @RequestMapping(value = "/product/addAllProductToCart/{id}", method = RequestMethod.POST)
+  public String addAllProductToCard(HttpServletRequest request, @PathVariable long id,
+      @RequestParam("quantities") long getValQuantitys) {
+    HttpSession session = request.getSession(false);
+    String email = (String) session.getAttribute("email");
+    this.productService.hanldAddProductToCart(id, email, session, getValQuantitys);
+
+    return "redirect:/product";
   }
 
 }

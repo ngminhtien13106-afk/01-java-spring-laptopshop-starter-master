@@ -80,6 +80,8 @@ public class itemController {
     return "redirect:/product/{id}";
   }
 
+  
+
   @RequestMapping("/productToCartDetail")
   public String ShowCartDetails(Model model, HttpServletRequest request) {
     HttpSession session = request.getSession(false);

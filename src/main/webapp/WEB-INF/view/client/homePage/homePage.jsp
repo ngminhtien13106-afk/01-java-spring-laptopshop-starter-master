@@ -66,7 +66,7 @@
                   <div class="col-lg-8 text-end">
                     <ul class="nav nav-pills d-inline-flex text-center mb-5">
                       <li class="nav-item">
-                        <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1">
+                        <a class="d-flex m-2 py-2 bg-light rounded-pill active" href="/product">
                           <span class="text-dark" style="width: 130px;">All Products</span>
                         </a>
                       </li>
@@ -177,7 +177,8 @@
                     <div class="p-4 rounded bg-light">
                       <div class="row align-items-center" style="height: 160px;">
                         <div class="col-6">
-                          <img src="images/product/${randomproduct.image}" class="img-fluid  w-100" alt="">
+                          <img src="images/product/${randomproduct.image}" class="img-fluid  w-100"
+                            style="height: 200px;" alt="">
                         </div>
                         <div class="col-6">
                           <a href="/product/${randomproduct.id}" class="h5">${randomproduct.name}</a>
