@@ -66,77 +66,103 @@
                         <h5 class="mb-4">Bộ lọc sản phẩm</h5>
 
                         <p class="mb-1 fw-bold">Hãng Sản Xuất</p>
-                        <div class="d-flex flex-wrap">
-                          <div class="form-check " style="margin: 0 10px 2px  0;">
-                            <input class="form-check-input" type="checkbox" value="Dell" id="factoryDell">
-                            <label class="form-check-label" for="factoryDell">
-                              Dell
-                            </label>
-                          </div>
+                        <form action="/product" method="post" id="checkoutForm">
+                          <div class="d-flex flex-wrap">
+                            <div class="form-check " style="margin: 0 10px 2px  0;">
 
-                          <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="HP" id="factoryHP">
-                            <label class="form-check-label" for="factoryHP">
-                              HP
-                            </label>
-                          </div>
+                              <input class="form-check-input" type="checkbox" name="name" value="" id="factoryDell">
 
-                          <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="Lenovo" id="factoryLenovo">
-                            <label class="form-check-label" for="factoryLenovo">
-                              Lenovo
-                            </label>
-                          </div>
+                              <label class="form-check-label" for="factoryDell">
+                                Chọn tất cả
+                              </label>
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="ASUS" id="factoryASUS">
-                            <label class="form-check-label" for="factoryASUS">
-                              ASUS
-                            </label>
-                          </div>
+                            </div>
+                            <div class="form-check " style="margin: 0 10px 2px  0;">
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="Acer" id="factoryAcer">
-                            <label class="form-check-label" for="factoryAcer">
-                              Acer
-                            </label>
-                          </div>
+                              <input class="form-check-input" type="checkbox" name="name" value="Dell" id="factoryDell">
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="MSI" id="factoryMSI">
-                            <label class="form-check-label" for="factoryMSI">
-                              MSI
-                            </label>
-                          </div>
+                              <label class="form-check-label" for="factoryDell">
+                                Dell
+                              </label>
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="Apple" id="factoryApple">
-                            <label class="form-check-label" for="factoryApple">
-                              Apple
-                            </label>
-                          </div>
+                            </div>
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="Samsung" id="factorySamsung">
-                            <label class="form-check-label" for="factorySamsung">
-                              Samsung
-                            </label>
-                          </div>
+                            <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="HP" id="factoryHP">
+                              <label class="form-check-label" for="factoryHP">
+                                HP
+                              </label>
+                            </div>
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="LG" id="factoryLG">
-                            <label class="form-check-label" for="factoryLG">
-                              LG
-                            </label>
-                          </div>
+                            <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="Lenovo"
+                                id="factoryLenovo">
+                              <label class="form-check-label" for="factoryLenovo">
+                                Lenovo
+                              </label>
+                            </div>
 
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="Microsoft" id="factoryMicrosoft">
-                            <label class="form-check-label" for="factoryMicrosoft">
-                              Microsoft
-                            </label>
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="ASUS" id="factoryASUS">
+                              <label class="form-check-label" for="factoryASUS">
+                                ASUS
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="Acer" id="factoryAcer">
+                              <label class="form-check-label" for="factoryAcer">
+                                Acer
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="MSI" id="factoryMSI">
+                              <label class="form-check-label" for="factoryMSI">
+                                MSI
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="Apple"
+                                id="factoryApple">
+                              <label class="form-check-label" for="factoryApple">
+                                Apple
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="Samsung"
+                                id="factorySamsung">
+                              <label class="form-check-label" for="factorySamsung">
+                                Samsung
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="LG" id="factoryLG">
+                              <label class="form-check-label" for="factoryLG">
+                                LG
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="name" value="Microsoft"
+                                id="factoryMicrosoft">
+                              <label class="form-check-label" for="factoryMicrosoft">
+                                Microsoft
+                              </label>
+                            </div>
                           </div>
-                        </div>
+                          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+                          <button
+                            class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4 btnToCheckout"
+                            type="submit">
+                            Lọc sản phẩm
+                          </button>
+                        </form>
+
 
                         <p class="mb-1 fw-bold">Mục Đích Sử Dụng</p>
                         <div>
@@ -257,55 +283,55 @@
                   <!-- PRODUCT LIST -->
                   <div class="col-12 col-md-8 col-lg-9">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4">
+                      <c:if test="${ not empty ListProduct}">
+                        <c:forEach var="product" items="${ListProduct}">
+                          <div class="col">
+                            <div class="rounded position-relative fruite-item h-100">
 
-                      <c:forEach var="product" items="${ListProduct}">
-                        <div class="col">
-                          <div class="rounded position-relative fruite-item h-100">
-
-                            <div class="fruite-img">
-                              <img src="/images/product/${product.image}" class="img-fluid w-100 rounded-top"
-                                style="height: 200px;" alt="${product.name}">
-                            </div>
-
-                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                              style="top: 10px; left: 10px;">
-                              New
-                            </div>
-
-                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-
-                              <h4 class="mb-2" style="font-size: 15px;">
-                                <a href="/product/${product.id}">
-                                  ${product.name}
-                                </a>
-                              </h4>
-
-                              <p class="mb-3" style="font-size: 13px;">
-                                ${product.shortDesc}
-                              </p>
-
-                              <div class="d-flex flex-column align-items-center">
-                                <p class="text-dark fw-bold mb-3" style="font-size: 15px;">
-                                  <fmt:formatNumber type="number" value="${product.price}" />đ
-                                </p>
-
-                                <form action="/product/addAllProductToCart/${product.id}" method="post"
-                                  class="w-100 text-center">
-
-                                  <input type="hidden" name="quantities" value="1">
-
-                                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-
-                                  <button type="submit" class="btn btn-primary w-100">
-                                    Add Cart Product
-                                  </button>
-                                </form>
+                              <div class="fruite-img">
+                                <img src="/images/product/${product.image}" class="img-fluid w-100 rounded-top"
+                                  style="height: 200px;" alt="${product.name}">
                               </div>
 
+                              <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                style="top: 10px; left: 10px;">
+                                New
+                              </div>
+
+                              <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+
+                                <h4 class="mb-2" style="font-size: 15px;">
+                                  <a href="/product/${product.id}">
+                                    ${product.name}
+                                  </a>
+                                </h4>
+
+                                <p class="mb-3" style="font-size: 13px;">
+                                  ${product.shortDesc}
+                                </p>
+
+                                <div class="d-flex flex-column align-items-center">
+                                  <p class="text-dark fw-bold mb-3" style="font-size: 15px;">
+                                    <fmt:formatNumber type="number" value="${product.price}" />đ
+                                  </p>
+
+                                  <form action="/product/addAllProductToCart/${product.id}" method="post"
+                                    class="w-100 text-center">
+
+                                    <input type="hidden" name="quantities" value="1">
+
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
+                                    <button type="submit" class="btn btn-primary w-100">
+                                      Add Cart Product
+                                    </button>
+                                  </form>
+                                </div>
+
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </c:forEach>
+                        </c:forEach>
 
                     </div>
 
@@ -318,7 +344,7 @@
                               <a class="page-link disabled" aria-disabled="true" tabindex="-1">&laquo;</a>
                             </c:when>
                             <c:otherwise>
-                              <a class="page-link" href="/?page=${currentPage - 1}">&laquo;</a>
+                              <a class="page-link" href="/product?page=${currentPage - 1}">&laquo;</a>
                             </c:otherwise>
                           </c:choose>
                         </li>
@@ -326,7 +352,7 @@
 
                           <li class="page-item"><a
                               class="${(loop.index + 1) eq  currentPage ? 'page-link active' : 'page-link'}"
-                              href="/admin/product?page=${loop.index + 1}">${loop.index + 1}</a>
+                              href="/product?page=${loop.index + 1}">${loop.index + 1}</a>
                           </li>
                         </c:forEach>
 
@@ -336,14 +362,18 @@
                               <a class="page-link disabled" aria-disabled="true" tabindex="-1">&raquo;</a>
                             </c:when>
                             <c:otherwise>
-                              <a class="page-link" href="/?page=${currentPage + 1}">&raquo;</a>
+                              <a class="page-link" href="/product?page=${currentPage + 1}">&raquo;</a>
                             </c:otherwise>
                           </c:choose>
                         </li>
                       </ul>
                     </nav>
-                  </div>
+                    </c:if>
 
+                  </div>
+                  <c:if test="${ empty ListProduct}">
+                    <h1 class="mt-5">Danh sách trống</h1>
+                  </c:if>
                 </div>
               </div>
             </div>
@@ -367,6 +397,7 @@
 
           <!-- Template Javascript -->
           <script src="../client/js/main.js"></script>
+
         </body>
 
         </html>

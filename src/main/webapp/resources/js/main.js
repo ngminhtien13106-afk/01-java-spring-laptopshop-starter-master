@@ -31,3 +31,8 @@ if (elementUpdate) {
     }
   });
 }
+
+// Source - https://stackoverflow.com/a/50012963
+// Posted by Vic, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-10-19, License - CC BY-SA 4.0
+

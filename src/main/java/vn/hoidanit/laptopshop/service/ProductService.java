@@ -2,15 +2,12 @@ package vn.hoidanit.laptopshop.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.eclipse.tags.shaded.org.apache.regexp.recompile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
-import vn.hoidanit.laptopshop.controller.admin.orderController;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Order;
@@ -22,6 +19,7 @@ import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
+import vn.hoidanit.laptopshop.service.Specification.ProductSpecs;
 
 @Service
 public class ProductService {
@@ -52,9 +50,18 @@ public class ProductService {
 
   }
 
-  public Page<Product> getAllProducts(Pageable pageable) {
-    return this.productRepository.findAll(pageable);
+  // page & specification
+
+  public Page<Product> getAllProducts(Pageable pageable, List<String> name) {
+    return this.productRepository.findAll(ProductSpecs.factoryIn(name), pageable);
   }
+
+  public Page<Product> getLikeProducts(Pageable pageable, String name) {
+    return this.productRepository.findAll(ProductSpecs.factoryLike(name), pageable);
+  }
+  // public Page<Product> getAllProducts(Pageable pageable) {
+  // return this.productRepository.findAll(pageable);
+  // }
 
   public Product getProductId(long id) {
     return this.productRepository.findById(id);
