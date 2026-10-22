@@ -79,7 +79,8 @@
                             </div>
                             <div class="form-check " style="margin: 0 10px 2px  0;">
 
-                              <input class="form-check-input" type="checkbox" name="name" value="Dell" id="factoryDell">
+                              <input class="form-check-input" type="checkbox" name="factory" value="Dell"
+                                id="factoryDell">
 
                               <label class="form-check-label" for="factoryDell">
                                 Dell
@@ -88,14 +89,14 @@
                             </div>
 
                             <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="HP" id="factoryHP">
+                              <input class="form-check-input" type="checkbox" name="factory" value="HP" id="factoryHP">
                               <label class="form-check-label" for="factoryHP">
                                 HP
                               </label>
                             </div>
 
                             <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="Lenovo"
+                              <input class="form-check-input" type="checkbox" name="factory" value="Lenovo"
                                 id="factoryLenovo">
                               <label class="form-check-label" for="factoryLenovo">
                                 Lenovo
@@ -103,28 +104,31 @@
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="ASUS" id="factoryASUS">
+                              <input class="form-check-input" type="checkbox" name="factory" value="ASUS"
+                                id="factoryASUS">
                               <label class="form-check-label" for="factoryASUS">
                                 ASUS
                               </label>
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="Acer" id="factoryAcer">
+                              <input class="form-check-input" type="checkbox" name="factory" value="Acer"
+                                id="factoryAcer">
                               <label class="form-check-label" for="factoryAcer">
                                 Acer
                               </label>
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="MSI" id="factoryMSI">
+                              <input class="form-check-input" type="checkbox" name="factory" value="MSI"
+                                id="factoryMSI">
                               <label class="form-check-label" for="factoryMSI">
                                 MSI
                               </label>
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="Apple"
+                              <input class="form-check-input" type="checkbox" name="factory" value="Apple"
                                 id="factoryApple">
                               <label class="form-check-label" for="factoryApple">
                                 Apple
@@ -132,7 +136,7 @@
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="Samsung"
+                              <input class="form-check-input" type="checkbox" name="factory" value="Samsung"
                                 id="factorySamsung">
                               <label class="form-check-label" for="factorySamsung">
                                 Samsung
@@ -140,17 +144,108 @@
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="LG" id="factoryLG">
+                              <input class="form-check-input" type="checkbox" name="factory" value="LG" id="factoryLG">
                               <label class="form-check-label" for="factoryLG">
                                 LG
                               </label>
                             </div>
 
                             <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                              <input class="form-check-input" type="checkbox" name="name" value="Microsoft"
+                              <input class="form-check-input" type="checkbox" name="factory" value="Microsoft"
                                 id="factoryMicrosoft">
                               <label class="form-check-label" for="factoryMicrosoft">
                                 Microsoft
+                              </label>
+                            </div>
+                          </div>
+
+
+
+                          <p class="mb-1 fw-bold">Mục Đích Sử Dụng</p>
+                          <div>
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Gaming" id="targetGaming">
+                              <label class="form-check-label" for="targetGaming">
+                                Chơi game
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Study" id="targetStudy">
+                              <label class="form-check-label" for="targetStudy">
+                                Học tập
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Programming"
+                                id="targetProgramming">
+                              <label class="form-check-label" for="targetProgramming">
+                                Lập trình
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Office" id="targetOffice">
+                              <label class="form-check-label" for="targetOffice">
+                                Văn phòng
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Graphic Design"
+                                id="targetGraphicDesign">
+                              <label class="form-check-label" for="targetGraphicDesign">
+                                Đồ họa
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Video Editing"
+                                id="targetVideoEditing">
+                              <label class="form-check-label" for="targetVideoEditing">
+                                Dựng video
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" value="Business" id="targetBusiness">
+                              <label class="form-check-label" for="targetBusiness">
+                                Doanh nhân / Công việc
+                              </label>
+                            </div>
+                          </div>
+
+                          <p class="mb-1 fw-bold">Mức Giá</p>
+                          <div class="d-flex flex-wrap">
+                            <div class="form-check " style="margin: 0 10px 2px  0;">
+                              <input class="form-check-input" type="checkbox" name="priceMin" value="10000000"
+                                id="factoryDell">
+                              <label class="form-check-label" for="factoryDell">
+                                Dưới 10 triệu
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="price" value="Tu10-15"
+                                id="factoryHP">
+                              <label class="form-check-label" for="factoryHP">
+                                Từ 10 - 15 triệu
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="price" value="Tu15-20">
+                              <label class="form-check-label" for="factoryLenovo">
+                                Từ 15 - 20 triệu
+                              </label>
+                            </div>
+
+                            <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
+                              <input class="form-check-input" type="checkbox" name="price" value="Tu20-25"
+                                id="factoryASUS">
+                              <label class="form-check-label" for="factoryASUS">
+                                Từ 20 - 25 triệu
                               </label>
                             </div>
                           </div>
@@ -162,92 +257,6 @@
                             Lọc sản phẩm
                           </button>
                         </form>
-
-
-                        <p class="mb-1 fw-bold">Mục Đích Sử Dụng</p>
-                        <div>
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Gaming" id="targetGaming">
-                            <label class="form-check-label" for="targetGaming">
-                              Chơi game
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Study" id="targetStudy">
-                            <label class="form-check-label" for="targetStudy">
-                              Học tập
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Programming" id="targetProgramming">
-                            <label class="form-check-label" for="targetProgramming">
-                              Lập trình
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Office" id="targetOffice">
-                            <label class="form-check-label" for="targetOffice">
-                              Văn phòng
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Graphic Design"
-                              id="targetGraphicDesign">
-                            <label class="form-check-label" for="targetGraphicDesign">
-                              Đồ họa
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Video Editing"
-                              id="targetVideoEditing">
-                            <label class="form-check-label" for="targetVideoEditing">
-                              Dựng video
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="Business" id="targetBusiness">
-                            <label class="form-check-label" for="targetBusiness">
-                              Doanh nhân / Công việc
-                            </label>
-                          </div>
-                        </div>
-
-                        <p class="mb-1 fw-bold">Mức Giá</p>
-                        <div class="d-flex flex-wrap">
-                          <div class="form-check " style="margin: 0 10px 2px  0;">
-                            <input class="form-check-input" type="checkbox" value="Dell" id="factoryDell">
-                            <label class="form-check-label" for="factoryDell">
-                              Dưới 10 triệu
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="HP" id="factoryHP">
-                            <label class="form-check-label" for="factoryHP">
-                              Từ 10 - 15 triệu
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2  style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="Lenovo" id="factoryLenovo">
-                            <label class="form-check-label" for="factoryLenovo">
-                              Từ 15 - 20 triệu
-                            </label>
-                          </div>
-
-                          <div class="form-check mb-2 style=" style="margin: 0 10px 2px 0;">
-                            <input class="form-check-input" type="checkbox" value="ASUS" id="factoryASUS">
-                            <label class="form-check-label" for="factoryASUS">
-                              Từ 20 - 25 triệu
-                            </label>
-                          </div>
-                        </div>
 
                         <p class="mb-1 fw-bold">Sắp xếp</p>
                         <div>

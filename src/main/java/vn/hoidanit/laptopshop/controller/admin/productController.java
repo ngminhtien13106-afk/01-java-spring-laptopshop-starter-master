@@ -33,10 +33,9 @@ public class productController {
 
   // managementproduct
   @RequestMapping("/admin/product")
-  public String getHomeDashboard(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
-      @RequestParam(name = "name", defaultValue = "") String name) {
+  public String getHomeDashboard(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
     Pageable pageable = PageRequest.of(page - 1, 2);
-    Page<Product> products = this.productService.getLikeProducts(pageable, name);
+    Page<Product> products = this.productService.getAllProducts(pageable);
     List<Product> ListProduct = products.getContent();
     model.addAttribute("currentPage", page);
     model.addAttribute("totalPage", products.getTotalPages());

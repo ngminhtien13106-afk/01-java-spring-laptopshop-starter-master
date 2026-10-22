@@ -28,12 +28,11 @@ public class homePageController {
   }
 
   @RequestMapping("/")
-  public String getHomePage(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
-      @RequestParam(name = "name", defaultValue = "") String name) {
+  public String getHomePage(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
     // danh sach show
     Pageable pageable = PageRequest.of(page - 1, 4);
     // List<String> listStr = Arrays.asList(name.join(",", name));
-    Page<Product> products = this.productService.getLikeProducts(pageable, name);
+    Page<Product> products = this.productService.getAllProducts(pageable);
     List<Product> ListProducts = products.getContent();
 
     // random
@@ -62,26 +61,18 @@ public class homePageController {
 
   @RequestMapping(value = "/product", method = { RequestMethod.POST, RequestMethod.GET })
   public String showAllProduct(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
-      @RequestParam(name = "name", defaultValue = "") String name) {
+      @RequestParam(name = "name", defaultValue = "") String name,
+      @RequestParam(name = "factory", required = false) List<String> factory,
+      @RequestParam(name = "priceMin", defaultValue = "0") double priceMin,
+      @RequestParam(name = "price", defaultValue = "") String price) {
     Pageable pageable = PageRequest.of(page - 1, 10);
-    String Null = "";
-    if (name.equalsIgnoreCase(Null)) {
 
-      Page<Product> products = this.productService.getLikeProducts(pageable, name);
-      List<Product> ListProducts = products.getContent();
-      model.addAttribute("currentPage", page);
-      model.addAttribute("totalPage", products.getTotalPages());
+    Page<Product> products = this.productService.searchProducts(pageable, factory, name, priceMin, price);
+    List<Product> ListProducts = products.getContent();
+    model.addAttribute("currentPage", page);
+    model.addAttribute("totalPage", products.getTotalPages());
 
-      model.addAttribute("ListProduct", ListProducts);
-    } else {
-      List<String> listName = Arrays.asList(name.split(","));
-      Page<Product> products = this.productService.getAllProducts(pageable, listName);
-      List<Product> ListProducts = products.getContent();
-      model.addAttribute("currentPage", page);
-      model.addAttribute("totalPage", products.getTotalPages());
-
-      model.addAttribute("ListProduct", ListProducts);
-    }
+    model.addAttribute("ListProduct", ListProducts);
 
     return "client/product/allProduct";
   }

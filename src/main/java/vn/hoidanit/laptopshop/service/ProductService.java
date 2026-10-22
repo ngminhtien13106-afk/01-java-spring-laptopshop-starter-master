@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -52,16 +53,43 @@ public class ProductService {
 
   // page & specification
 
-  public Page<Product> getAllProducts(Pageable pageable, List<String> name) {
-    return this.productRepository.findAll(ProductSpecs.factoryIn(name), pageable);
+  public Page<Product> searchProducts(
+      Pageable pageable,
+      List<String> factories,
+      String name, double priceMin , String price) {
+    double max = 0 ;
+    double min = 0;
+    if (price.equals("Tu10-15")) {
+      max = 15000000;
+      min = 10000000;
+    } else if (price.equals("Tu15-20")) {
+      max = 20000000;
+      min = 15000000;
+    } else if (price.equals("Tu20-25")) {
+      max = 25000000;
+      min = 20000000;
+    }
+    Specification<Product> spec = Specification
+        .where(ProductSpecs.factoryIn(factories))
+        .and(ProductSpecs.factoryLike(name))
+        .and(ProductSpecs.priceLt(priceMin))
+        .and(ProductSpecs.price(max, min));
+
+    return productRepository.findAll(spec, pageable);
   }
 
-  public Page<Product> getLikeProducts(Pageable pageable, String name) {
-    return this.productRepository.findAll(ProductSpecs.factoryLike(name), pageable);
-  }
-  // public Page<Product> getAllProducts(Pageable pageable) {
-  // return this.productRepository.findAll(pageable);
+  // public Page<Product> getAllProducts(Pageable pageable, List<String> name) {
+  // return this.productRepository.findAll(ProductSpecs.factoryIn(name),
+  // pageable);
   // }
+
+  // public Page<Product> getLikeProducts(Pageable pageable, String name) {
+  // return this.productRepository.findAll(ProductSpecs.factoryLike(name),
+  // pageable);
+  // }
+  public Page<Product> getAllProducts(Pageable pageable) {
+    return this.productRepository.findAll(pageable);
+  }
 
   public Product getProductId(long id) {
     return this.productRepository.findById(id);
