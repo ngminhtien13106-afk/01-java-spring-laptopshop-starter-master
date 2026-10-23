@@ -56,8 +56,8 @@ public class ProductService {
   public Page<Product> searchProducts(
       Pageable pageable,
       List<String> factories,
-      String name, double priceMin , String price) {
-    double max = 0 ;
+      String name, double priceMin, String price, double priceMax, String flexRadioDefault, List<String> target) {
+    double max = 0;
     double min = 0;
     if (price.equals("Tu10-15")) {
       max = 15000000;
@@ -72,8 +72,11 @@ public class ProductService {
     Specification<Product> spec = Specification
         .where(ProductSpecs.factoryIn(factories))
         .and(ProductSpecs.factoryLike(name))
-        .and(ProductSpecs.priceLt(priceMin))
-        .and(ProductSpecs.price(max, min));
+        .and(ProductSpecs.priceLe(priceMin))
+        .and(ProductSpecs.priceGe(priceMax))
+        .and(ProductSpecs.price(max, min))
+        .and(ProductSpecs.priceArrange(flexRadioDefault))
+        .and(ProductSpecs.targetLike(target));
 
     return productRepository.findAll(spec, pageable);
   }

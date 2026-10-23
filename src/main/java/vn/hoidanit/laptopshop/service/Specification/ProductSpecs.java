@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.Product_;
 
@@ -36,7 +39,7 @@ public class ProductSpecs {
   }
 
   // Tìm kiếm sản phẩm sản phẩm nhỏ hơn đối số number
-  public static Specification<Product> priceLt(double priceMin) {
+  public static Specification<Product> priceLe(double priceMin) {
     return (root, query, cb) -> {
 
       if (priceMin == 0) {
@@ -48,6 +51,20 @@ public class ProductSpecs {
     };
   }
 
+  // Tìm kiếm sản phẩm lớn hơn đối số number
+  public static Specification<Product> priceGe(double priceMax) {
+    return (root, query, cb) -> {
+
+      if (priceMax == 0) {
+        return cb.conjunction();
+      }
+
+      return cb.ge(
+          root.get(Product_.PRICE), priceMax);
+    };
+  }
+
+  // Tìm kiểm sản phẩm trong khoảng giá
   public static Specification<Product> price(double priceMax, double priceMin) {
     return (root, query, cb) -> {
       if (priceMax == 0 && priceMin == 0) {
@@ -59,4 +76,33 @@ public class ProductSpecs {
     };
   }
 
+  // Sắp xếp
+  public static Specification<Product> priceArrange(String flexRadioDefault) {
+    return (root, query, cb) -> {
+
+      if (flexRadioDefault == null || flexRadioDefault.isEmpty()) {
+        return cb.conjunction();
+      }
+
+      if (flexRadioDefault.equals("tang-dan")) {
+        query.orderBy(cb.asc(root.get(Product_.PRICE)));
+
+      }
+      if (flexRadioDefault.equals("giam-dan")) {
+        query.orderBy(cb.desc(root.get(Product_.PRICE)));
+      }
+      return cb.conjunction();
+    };
+  }
+
+  public static Specification<Product> targetLike(List<String> target) {
+    return (root, query, cb) -> {
+
+      if (target == null || target.isEmpty()) {
+        return cb.conjunction();
+      }
+
+      return root.get(Product_.TARGET).in(target);
+    };
+  }
 }

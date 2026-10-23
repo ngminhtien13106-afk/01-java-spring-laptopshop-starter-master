@@ -245,6 +245,81 @@
         return formatted;
     }
 
+     //handle filter products
+    $('#btnFilter').click(function (event) {
+        event.preventDefault();
+
+        let factoryArr = [];
+        let targetArr = [];
+       
+        //factory filter
+        $("#factoryFilter .form-check-input:checked").each(function () {
+            factoryArr.push($(this).val());
+        });
+
+        //target filter
+        $("#targetFilter .form-check-input:checked").each(function () {
+            targetArr.push($(this).val());
+        });
+
+        
+
+        //sort order
+        let sortValue = $('input[name="flexRadioDefault"]:checked').val();
+          let hardValue = $('input[name="price"]:checked').val();
+
+        const currentUrl = new URL(window.location.href);
+        const searchParams = currentUrl.searchParams;
+
+        // Add or update query parameters
+        searchParams.set('page', '1');
+        searchParams.set('flexRadioDefault', sortValue);
+        searchParams.set('price', hardValue);
+
+        if (factoryArr.length > 0) {
+            searchParams.set('factory', factoryArr.join(','));
+        }
+        if (targetArr.length > 0) {
+            searchParams.set('target', targetArr.join(','));
+        }
+        
+
+        // Update the URL and reload the page
+        window.location.href = currentUrl.toString();
+    });
+
+    //handle auto checkbox after page loading
+    // Parse the URL parameters
+    const params = new URLSearchParams(window.location.search);
+
+    // Set checkboxes for 'factory'
+    if (params.has('factory')) {
+        const factories = params.get('factory').split(',');
+        factories.forEach(factory => {
+            $(`#factoryFilter .form-check-input[value="${factory}"]`).prop('checked', true);
+        });
+    }
+
+    // Set checkboxes for 'target'
+    if (params.has('target')) {
+        const targets = params.get('target').split(',');
+        targets.forEach(target => {
+            $(`#targetFilter .form-check-input[value="${target}"]`).prop('checked', true);
+        });
+    }
+
+    // // Set checkboxes for 'price'
+    if (params.has('price')) {
+       const sort = params.get('price');
+        $(`input[type="radio"][name="price"][value="${sort}"]`).prop('checked', true);
+    }
+
+    // Set radio buttons for 'sort'
+    if (params.has('flexRadioDefault')) {
+        const sort = params.get('flexRadioDefault');
+        $(`input[type="radio"][name="flexRadioDefault"][value="${sort}"]`).prop('checked', true);
+    }
+
 })(jQuery);
 
 

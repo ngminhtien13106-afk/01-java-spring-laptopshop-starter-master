@@ -64,10 +64,14 @@ public class homePageController {
       @RequestParam(name = "name", defaultValue = "") String name,
       @RequestParam(name = "factory", required = false) List<String> factory,
       @RequestParam(name = "priceMin", defaultValue = "0") double priceMin,
-      @RequestParam(name = "price", defaultValue = "") String price) {
+      @RequestParam(name = "priceMax", defaultValue = "0") double priceMax,
+      @RequestParam(name = "price", defaultValue = "") String price,
+      @RequestParam(name = "flexRadioDefault", defaultValue = "normal") String flexRadioDefault,
+      @RequestParam(name = "target", required = false) List<String> target) {
     Pageable pageable = PageRequest.of(page - 1, 10);
 
-    Page<Product> products = this.productService.searchProducts(pageable, factory, name, priceMin, price);
+    Page<Product> products = this.productService.searchProducts(pageable, factory, name, priceMin, price, priceMax,
+        flexRadioDefault, target);
     List<Product> ListProducts = products.getContent();
     model.addAttribute("currentPage", page);
     model.addAttribute("totalPage", products.getTotalPages());
