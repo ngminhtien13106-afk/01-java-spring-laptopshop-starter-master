@@ -219,8 +219,7 @@
                         <p class="mb-1 fw-bold">Mức Giá</p>
                         <div class="d-flex flex-wrap" id="priceFilter">
                           <div class="form-check " style="margin: 0 10px 2px  0;">
-                            <input class="form-check-input" type="radio" name="priceMin" value="10000000"
-                              id="factoryDell">
+                            <input class="form-check-input" type="radio" name="price" value="duoi10" id="factoryDell">
                             <label class="form-check-label" for="factoryDell">
                               Dưới 10 triệu
                             </label>
@@ -248,8 +247,7 @@
                           </div>
 
                           <div class="form-check " style="margin: 0 10px 2px  0;">
-                            <input class="form-check-input" type="radio" name="priceMax" value="30000000"
-                              id="factoryDell">
+                            <input class="form-check-input" type="radio" name="price" value="tren30" id="factoryDell">
                             <label class="form-check-label" for="factoryDell">
                               Lớn 30 triệu
                             </label>
@@ -360,7 +358,7 @@
                               <a class="page-link disabled" aria-disabled="true" tabindex="-1">&laquo;</a>
                             </c:when>
                             <c:otherwise>
-                              <a class="page-link" href="/product?page=${currentPage - 1}">&laquo;</a>
+                              <a class="page-link" href="/product?page=${currentPage - 1}${qs}">&laquo;</a>
                             </c:otherwise>
                           </c:choose>
                         </li>
@@ -368,7 +366,7 @@
 
                           <li class="page-item"><a
                               class="${(loop.index + 1) eq  currentPage ? 'page-link active' : 'page-link'}"
-                              href="/product?page=${loop.index + 1}">${loop.index + 1}</a>
+                              href="/product?page=${loop.index + 1}${qs}">${loop.index + 1}</a>
                           </li>
                         </c:forEach>
 
@@ -378,7 +376,7 @@
                               <a class="page-link disabled" aria-disabled="true" tabindex="-1">&raquo;</a>
                             </c:when>
                             <c:otherwise>
-                              <a class="page-link" href="/product?page=${currentPage + 1}">&raquo;</a>
+                              <a class="page-link" href="/product?page=${currentPage + 1}${qs}">&raquo;</a>
                             </c:otherwise>
                           </c:choose>
                         </li>

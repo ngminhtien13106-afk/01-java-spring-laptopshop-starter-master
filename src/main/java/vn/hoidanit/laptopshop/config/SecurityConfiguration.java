@@ -81,7 +81,7 @@ public class SecurityConfiguration {
             .permitAll()
 
             .requestMatchers("/", "product/**", "/register", "/login", "/avatar", "/client/**", "/css/**", "/js/**",
-                "/images/**")
+                "/images/**", "/product")
             .permitAll()
             // Sử lý auth admintrastor
             .requestMatchers("/admin/**").hasRole("ADMIN")

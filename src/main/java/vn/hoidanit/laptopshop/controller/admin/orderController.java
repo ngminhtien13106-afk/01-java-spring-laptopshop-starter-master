@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.controller.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ public class orderController {
 
   private final ProductService productService;
 
-  public orderController(ProductService productService) {
+  public orderController(@Lazy ProductService productService) {
     this.productService = productService;
   }
 

@@ -246,47 +246,64 @@
     }
 
      //handle filter products
-    $('#btnFilter').click(function (event) {
-        event.preventDefault();
+    
+$('#btnFilter').click(function (event) {
+    event.preventDefault();
 
-        let factoryArr = [];
-        let targetArr = [];
-       
-        //factory filter
-        $("#factoryFilter .form-check-input:checked").each(function () {
-            factoryArr.push($(this).val());
-        });
+    const factoryArr = [];
+    const targetArr = [];
 
-        //target filter
-        $("#targetFilter .form-check-input:checked").each(function () {
-            targetArr.push($(this).val());
-        });
-
-        
-
-        //sort order
-        let sortValue = $('input[name="flexRadioDefault"]:checked').val();
-          let hardValue = $('input[name="price"]:checked').val();
-
-        const currentUrl = new URL(window.location.href);
-        const searchParams = currentUrl.searchParams;
-
-        // Add or update query parameters
-        searchParams.set('page', '1');
-        searchParams.set('flexRadioDefault', sortValue);
-        searchParams.set('price', hardValue);
-
-        if (factoryArr.length > 0) {
-            searchParams.set('factory', factoryArr.join(','));
-        }
-        if (targetArr.length > 0) {
-            searchParams.set('target', targetArr.join(','));
-        }
-        
-
-        // Update the URL and reload the page
-        window.location.href = currentUrl.toString();
+    // Lấy các checkbox nhà sản xuất đang được chọn
+    $('#factoryFilter .form-check-input:checked').each(function () {
+        factoryArr.push($(this).val());
     });
+
+    // Lấy các checkbox mục đích sử dụng đang được chọn
+    $('#targetFilter .form-check-input:checked').each(function () {
+        targetArr.push($(this).val());
+    });
+
+    // Lấy radio đang được chọn
+    const sortValue = $('input[name="flexRadioDefault"]:checked').val();
+    const priceValue = $('input[name="price"]:checked').val();
+
+    const currentUrl = new URL(window.location.href);
+    const params = currentUrl.searchParams;
+
+    // Giữ các tham số khác, chỉ cập nhật tham số lọc
+    params.set('page', '1');
+
+    // Nhà sản xuất
+    if (factoryArr.length > 0) {
+        params.set('factory', factoryArr.join(','));
+    } else {
+        params.delete('factory');
+    }
+
+    // Mục đích sử dụng
+    if (targetArr.length > 0) {
+        params.set('target', targetArr.join(','));
+    } else {
+        params.delete('target');
+    }
+
+    // Sắp xếp
+    if (sortValue) {
+        params.set('flexRadioDefault', sortValue);
+    } else {
+        params.delete('flexRadioDefault');
+    }
+
+    // Giá
+    if (priceValue) {
+        params.set('price', priceValue);
+    } else {
+        params.delete('price');
+    }
+
+    window.location.href = currentUrl.toString();
+});
+
 
     //handle auto checkbox after page loading
     // Parse the URL parameters

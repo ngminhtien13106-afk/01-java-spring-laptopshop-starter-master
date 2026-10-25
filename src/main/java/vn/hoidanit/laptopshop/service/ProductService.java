@@ -9,12 +9,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
+import vn.hoidanit.laptopshop.controller.admin.productController;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Order_detail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.domain.DTO.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
@@ -54,29 +56,52 @@ public class ProductService {
   // page & specification
 
   public Page<Product> searchProducts(
-      Pageable pageable,
-      List<String> factories,
-      String name, double priceMin, String price, double priceMax, String flexRadioDefault, List<String> target) {
-    double max = 0;
-    double min = 0;
-    if (price.equals("Tu10-15")) {
-      max = 15000000;
-      min = 10000000;
-    } else if (price.equals("Tu15-20")) {
-      max = 20000000;
-      min = 15000000;
-    } else if (price.equals("Tu20-25")) {
-      max = 25000000;
-      min = 20000000;
+      Pageable pageable, ProductCriteriaDTO productCriteriaDTO) {
+
+    // if (productCriteriaDTO.getPrice() != null) {
+
+    // }
+    if (productCriteriaDTO.getFactory() == null && productCriteriaDTO.getPrice() == null
+        && productCriteriaDTO.getFlexRadioDefault() == null && productCriteriaDTO.getTarget() == null) {
+      return productRepository.findAll(pageable);
     }
     Specification<Product> spec = Specification
-        .where(ProductSpecs.factoryIn(factories))
-        .and(ProductSpecs.factoryLike(name))
-        .and(ProductSpecs.priceLe(priceMin))
-        .and(ProductSpecs.priceGe(priceMax))
-        .and(ProductSpecs.price(max, min))
-        .and(ProductSpecs.priceArrange(flexRadioDefault))
-        .and(ProductSpecs.targetLike(target));
+        .where(null);
+    if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+      Specification<Product> otherSpec = ProductSpecs.factoryIn(productCriteriaDTO.getFactory().get());
+      spec = spec.and(otherSpec);
+    }
+    if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+      Specification<Product> otherSpec = ProductSpecs.targetIn(productCriteriaDTO.getTarget().get());
+      spec = spec.and(otherSpec);
+    }
+    // if (productCriteriaDTO.getFlexRadioDefault() != null &&
+    // productCriteriaDTO.getFlexRadioDefault().isPresent()) {
+    // Specification<Product> otherSpec =
+    // ProductSpecs.priceArrange(productCriteriaDTO.getFlexRadioDefault().get());
+    // spec = spec.and(otherSpec);
+    // }
+    if (productCriteriaDTO.getPrice() != null &&
+        productCriteriaDTO.getPrice().isPresent()) {
+      double max = 0;
+      double min = 0;
+      if (productCriteriaDTO.getPrice().get().equals("Tu10-15")) {
+        max = 15000000;
+        min = 10000000;
+      } else if (productCriteriaDTO.getPrice().get().equals("Tu15-20")) {
+        max = 20000000;
+        min = 15000000;
+      } else if (productCriteriaDTO.getPrice().get().equals("Tu20-25")) {
+        max = 25000000;
+        min = 20000000;
+      } else if (productCriteriaDTO.getPrice().get().equals("duoi10")) {
+        min = 10000000;
+      } else if (productCriteriaDTO.getPrice().get().equals("tren30")) {
+        max = 30000000;
+      }
+      Specification<Product> otherSpec = ProductSpecs.price(max, min);
+      spec = spec.and(otherSpec);
+    }
 
     return productRepository.findAll(spec, pageable);
   }

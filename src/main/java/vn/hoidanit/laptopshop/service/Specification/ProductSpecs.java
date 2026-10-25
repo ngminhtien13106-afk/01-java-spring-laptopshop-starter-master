@@ -70,9 +70,17 @@ public class ProductSpecs {
       if (priceMax == 0 && priceMin == 0) {
         return cb.conjunction();
       }
-
-      return cb.and(cb.le(root.get(Product_.PRICE), priceMax),
-          cb.ge(root.get(Product_.PRICE), priceMin));
+      if (priceMin > 10000000 && priceMax < 30000000) {
+        return cb.and(cb.le(root.get(Product_.PRICE), priceMax),
+            cb.ge(root.get(Product_.PRICE), priceMin));
+      } else if (priceMin == 10000000 && priceMax == 0) {
+        return cb.le(
+            root.get(Product_.PRICE), priceMin);
+      } else if (priceMax == 30000000 && priceMin == 0) {
+        return cb.ge(
+            root.get(Product_.PRICE), priceMax);
+      }
+      return cb.conjunction();
     };
   }
 
@@ -91,11 +99,12 @@ public class ProductSpecs {
       if (flexRadioDefault.equals("giam-dan")) {
         query.orderBy(cb.desc(root.get(Product_.PRICE)));
       }
+
       return cb.conjunction();
     };
   }
 
-  public static Specification<Product> targetLike(List<String> target) {
+  public static Specification<Product> targetIn(List<String> target) {
     return (root, query, cb) -> {
 
       if (target == null || target.isEmpty()) {
